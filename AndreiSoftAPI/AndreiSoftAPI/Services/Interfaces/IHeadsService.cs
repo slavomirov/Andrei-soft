@@ -1,15 +1,18 @@
 ﻿using AndreiSoftAPI.Data.DTOs;
-using AndreiSoftAPI.Data.Models;
 
 namespace AndreiSoftAPI.Services.Interfaces;
 
 public interface IHeadsService
 {
-    Task<List<Head>> GetAllAsync();
-    Task<Head?> GetByIdAsync(int id);
-    Task<Head> CreateAsync(CreateHeadDTO dto, string userId);
-    Task<Head> UpdateAsync(int id, UpdateHeadDTO input);
-    Task DeleteAsync(int id);
-    Task<Head?> AssignAsync(int headId, string workerId, string changedByUserId);
-    Task<Head?> ChangeStatusAsync(int headId, HeadStatus newStatus, string userId);
+    Task<List<HeadResponseDTO>> GetAllAsync();
+    Task<List<HeadResponseDTO>> GetAvailableAsync();
+    Task<HeadResponseDTO?> GetByIdAsync(int id);
+    Task<HeadResponseDTO> CreateAsync(CreateHeadDTO dto, string userId, string userDisplayName);
+    Task<HeadResponseDTO> UpdateAsync(int id, UpdateHeadDTO dto, string userId, string userDisplayName);
+    Task DeleteAsync(int id, string userId, string userDisplayName);
+    Task<HeadResponseDTO> StartWorkAsync(int headId, string mechanicId, string mechanicDisplayName);
+    Task<HeadResponseDTO> FinishAsync(int headId, string mechanicId, string mechanicDisplayName);
+    Task<HeadResponseDTO> AddServiceNeedAsync(int headId, string serviceNeed, string userId, string userDisplayName);
+    Task<HeadResponseDTO> RemoveServiceNeedAsync(int headId, string serviceNeed, string userId, string userDisplayName);
+    Task<HeadResponseDTO> CheckServiceNeedAsync(int headId, string serviceNeed, string userId, string userDisplayName);
 }

@@ -1,12 +1,15 @@
-﻿using AndreiSoftAPI.Data.Models;
-
-namespace AndreiSoftAPI.Data.DTOs;
+﻿namespace AndreiSoftAPI.Data.DTOs;
 
 public class UpdateHeadDTO
 {
-    public string Description { get; set; }
-    public string Actions { get; set; }
-    public decimal Price { get; set; }
-    public HeadStatus Status { get; set; }
-    public string? AssignedWorkerId { get; set; }
+    public string Make { get; set; } = string.Empty;
+    public string Model { get; set; } = string.Empty;
+    public int Year { get; set; }
+    public string PartNumber { get; set; } = string.Empty;
+    public string OwnerFirstName { get; set; } = string.Empty;
+    public string OwnerLastName { get; set; } = string.Empty;
+    public string ServiceName { get; set; } = string.Empty;
+    public string ServicePhoneNumber { get; set; } = string.Empty;
+    public List<string> ServiceNeeds { get; set; } = new();
+    public string? Status { get; set; }
 }

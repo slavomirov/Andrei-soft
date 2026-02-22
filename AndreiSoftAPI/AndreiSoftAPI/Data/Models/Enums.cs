@@ -2,11 +2,10 @@
 
 public enum HeadStatus
 {
-    Received,
-    Assigned,
-    InProgress,
+    Added,
+    WorkingOn,
     Completed,
-    Delivered
+    GivenToClient
 }
 
 public enum HeadAction
@@ -15,5 +14,19 @@ public enum HeadAction
     Assigned,
     Started,
     Finished,
-    Delivered
+    GivenToClient
+}
+
+public enum ServiceNeedType
+{
+    ValveSeatMachining,
+    ValveGuidesReplacement,
+    SurfaceGrinding,
+    CrackTesting,
+    CleaningAndWashing,
+    SpringTesting,
+    SealReplacement,
+    PortingAndPolishing,
+    AssemblyWork,
+    PressureTesting
 }

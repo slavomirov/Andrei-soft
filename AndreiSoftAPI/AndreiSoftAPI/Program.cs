@@ -8,14 +8,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
+// ── CORS ────────────────────────────────────────────────────────
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowLocalhost5173", policy =>
+    options.AddPolicy("AllowClient", policy =>
     {
         policy.WithOrigins("http://localhost:5173")
             .AllowAnyMethod()
@@ -24,25 +24,37 @@ builder.Services.AddCors(options =>
     });
 });
 
+// ── EF Core ─────────────────────────────────────────────────────
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// ── Identity ────────────────────────────────────────────────────
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
+// ── SignalR ─────────────────────────────────────────────────────
 builder.Services.AddSignalR();
 
-builder.Services.AddControllers();
+// ── Controllers ─────────────────────────────────────────────────
+builder.Services.AddControllers()
+    .AddJsonOptions(o =>
+    {
+        o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        o.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    });
 
-builder.Services.AddScoped<IHeadsService,HeadsService>();
+// ── DI ──────────────────────────────────────────────────────────
+builder.Services.AddScoped<IHeadsService, HeadsService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IStatusLoggerService, StatusLoggerService>();
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// ── Swagger ─────────────────────────────────────────────────────
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// ── JWT Auth ────────────────────────────────────────────────────
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -59,49 +71,46 @@ builder.Services.AddAuthentication(options =>
         ValidIssuer = builder.Configuration["Jwt:Issuer"],
         ValidAudience = builder.Configuration["Jwt:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+            Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)),
+        RoleClaimType = System.Security.Claims.ClaimTypes.Role,
     };
 
-    // ��������� SignalR + JWT
+    // SignalR + JWT – read token from query string
     options.Events = new JwtBearerEvents
     {
         OnMessageReceived = context =>
         {
             var accessToken = context.Request.Query["access_token"];
-
             var path = context.HttpContext.Request.Path;
             if (!string.IsNullOrEmpty(accessToken) &&
-                path.StartsWithSegments("/headsHub"))
+                path.StartsWithSegments("/hubs/heads"))
             {
                 context.Token = accessToken;
             }
-
             return Task.CompletedTask;
         }
     };
 });
 
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// ── Swagger (dev) ───────────────────────────────────────────────
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+// ── Seed roles & admin ──────────────────────────────────────────
 using (var scope = app.Services.CreateScope())
 {
-    var userService = scope.ServiceProvider.GetRequiredService<UserService>();
+    var userService = scope.ServiceProvider.GetRequiredService<IUserService>();
     await userService.EnsureRolesExistAsync();
     await userService.EnsureAdminUserExistsAsync();
 }
 
 app.UseHttpsRedirection();
-
-app.UseCors("AllowLocalhost5173");
-
+app.UseCors("AllowClient");
 app.UseAuthentication();
 app.UseAuthorization();
 

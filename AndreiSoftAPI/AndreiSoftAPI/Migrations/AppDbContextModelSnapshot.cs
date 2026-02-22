@@ -41,6 +41,17 @@ namespace AndreiSoftAPI.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -95,22 +106,56 @@ namespace AndreiSoftAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Actions")
+                    b.Property<string>("CheckedServiceNeeds")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("AssignedWorkerId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime?>("CompletedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Description")
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Make")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MechanicDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MechanicId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Model")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OwnerFirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OwnerLastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PartNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ServiceName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ServiceNeeds")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ServicePhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -118,9 +163,12 @@ namespace AndreiSoftAPI.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("AssignedWorkerId");
+                    b.HasIndex("MechanicId");
 
                     b.ToTable("Heads");
                 });
@@ -133,21 +181,35 @@ namespace AndreiSoftAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("AssignedWorkerId")
+                    b.Property<string>("Action")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("AssignedWorkerName")
+                    b.Property<string>("ChangedByDisplayName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ChangedByUserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("HeadDescription")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("HeadId")
                         .HasColumnType("int");
+
+                    b.Property<string>("HeadSummary")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MechanicDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MechanicId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -328,11 +390,11 @@ namespace AndreiSoftAPI.Migrations
 
             modelBuilder.Entity("AndreiSoftAPI.Data.Models.Head", b =>
                 {
-                    b.HasOne("AndreiSoftAPI.Data.Models.ApplicationUser", "AssignedWorker")
+                    b.HasOne("AndreiSoftAPI.Data.Models.ApplicationUser", "Mechanic")
                         .WithMany("Heads")
-                        .HasForeignKey("AssignedWorkerId");
+                        .HasForeignKey("MechanicId");
 
-                    b.Navigation("AssignedWorker");
+                    b.Navigation("Mechanic");
                 });
 
             modelBuilder.Entity("AndreiSoftAPI.Data.Models.HeadStatusLog", b =>
