@@ -1,0 +1,385 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|c:\\users\\spart\\desktop\\project\\andrei-soft\\andreisoftapi\\andreisoftapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|solutionrelative:andreisoftapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|c:\\users\\spart\\desktop\\project\\andrei-soft\\andreisoftapi\\andreisoftapi\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|solutionrelative:andreisoftapi\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|c:\\users\\spart\\desktop\\project\\andrei-soft\\andreisoftapi\\andreisoftapi\\services\\interfaces\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|solutionrelative:andreisoftapi\\services\\interfaces\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|c:\\users\\spart\\desktop\\project\\andrei-soft\\andreisoftapi\\andreisoftapi\\services\\interfaces\\istatusloggerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|solutionrelative:andreisoftapi\\services\\interfaces\\istatusloggerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|c:\\users\\spart\\desktop\\project\\andrei-soft\\andreisoftapi\\andreisoftapi\\services\\statusloggerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|solutionrelative:andreisoftapi\\services\\statusloggerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|c:\\users\\spart\\desktop\\project\\andrei-soft\\andreisoftapi\\andreisoftapi\\data\\dtos\\refreshdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|solutionrelative:andreisoftapi\\data\\dtos\\refreshdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|c:\\users\\spart\\desktop\\project\\andrei-soft\\andreisoftapi\\andreisoftapi\\services\\interfaces\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|solutionrelative:andreisoftapi\\services\\interfaces\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|c:\\users\\spart\\desktop\\project\\andrei-soft\\andreisoftapi\\andreisoftapi\\services\\interfaces\\iheadsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|solutionrelative:andreisoftapi\\services\\interfaces\\iheadsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|c:\\users\\spart\\desktop\\project\\andrei-soft\\andreisoftapi\\andreisoftapi\\services\\headsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|solutionrelative:andreisoftapi\\services\\headsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|c:\\users\\spart\\desktop\\project\\andrei-soft\\andreisoftapi\\andreisoftapi\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|solutionrelative:andreisoftapi\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|c:\\users\\spart\\desktop\\project\\andrei-soft\\andreisoftapi\\andreisoftapi\\controllers\\headscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|solutionrelative:andreisoftapi\\controllers\\headscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|c:\\users\\spart\\desktop\\project\\andrei-soft\\andreisoftapi\\andreisoftapi\\data\\models\\head.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|solutionrelative:andreisoftapi\\data\\models\\head.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|c:\\users\\spart\\desktop\\project\\andrei-soft\\andreisoftapi\\andreisoftapi\\hubs\\headshub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|solutionrelative:andreisoftapi\\hubs\\headshub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|c:\\users\\spart\\desktop\\project\\andrei-soft\\andreisoftapi\\andreisoftapi\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|solutionrelative:andreisoftapi\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|c:\\users\\spart\\desktop\\project\\andrei-soft\\andreisoftapi\\andreisoftapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|solutionrelative:andreisoftapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|c:\\users\\spart\\desktop\\project\\andrei-soft\\andreisoftapi\\andreisoftapi\\data\\dtos\\createheaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|solutionrelative:andreisoftapi\\data\\dtos\\createheaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|c:\\users\\spart\\desktop\\project\\andrei-soft\\andreisoftapi\\andreisoftapi\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|solutionrelative:andreisoftapi\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|c:\\users\\spart\\desktop\\project\\andrei-soft\\andreisoftapi\\andreisoftapi\\data\\models\\refreshtoken.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|solutionrelative:andreisoftapi\\data\\models\\refreshtoken.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|c:\\users\\spart\\desktop\\project\\andrei-soft\\andreisoftapi\\andreisoftapi\\data\\dtos\\registerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|solutionrelative:andreisoftapi\\data\\dtos\\registerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|c:\\users\\spart\\desktop\\project\\andrei-soft\\andreisoftapi\\andreisoftapi\\data\\dtos\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|solutionrelative:andreisoftapi\\data\\dtos\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|c:\\users\\spart\\desktop\\project\\andrei-soft\\andreisoftapi\\andreisoftapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|solutionrelative:andreisoftapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|c:\\users\\spart\\desktop\\project\\andrei-soft\\andreisoftapi\\andreisoftapi\\data\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F0DDAB8-B419-4B5C-A158-995A1A1A503E}|AndreiSoftAPI\\AndreiSoftAPI.csproj|solutionrelative:andreisoftapi\\data\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "HeadsService.cs",
+              "DocumentMoniker": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Services\\HeadsService.cs",
+              "RelativeDocumentMoniker": "AndreiSoftAPI\\Services\\HeadsService.cs",
+              "ToolTip": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Services\\HeadsService.cs",
+              "RelativeToolTip": "AndreiSoftAPI\\Services\\HeadsService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAF0AAABfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-25T13:58:52.1Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "StatusLoggerService.cs",
+              "DocumentMoniker": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Services\\StatusLoggerService.cs",
+              "RelativeDocumentMoniker": "AndreiSoftAPI\\Services\\StatusLoggerService.cs",
+              "ToolTip": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Services\\StatusLoggerService.cs",
+              "RelativeToolTip": "AndreiSoftAPI\\Services\\StatusLoggerService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAABNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-25T14:07:58.901Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Program.cs",
+              "RelativeDocumentMoniker": "AndreiSoftAPI\\Program.cs",
+              "ToolTip": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Program.cs",
+              "RelativeToolTip": "AndreiSoftAPI\\Program.cs",
+              "ViewState": "AgIAAE0AAAAAAAAAAAAqwF8AAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-25T13:33:34.705Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Services\\AuthService.cs",
+              "RelativeDocumentMoniker": "AndreiSoftAPI\\Services\\AuthService.cs",
+              "ToolTip": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Services\\AuthService.cs",
+              "RelativeToolTip": "AndreiSoftAPI\\Services\\AuthService.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAAAGoAAABjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-25T13:27:28.812Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IAuthService.cs",
+              "DocumentMoniker": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Services\\Interfaces\\IAuthService.cs",
+              "RelativeDocumentMoniker": "AndreiSoftAPI\\Services\\Interfaces\\IAuthService.cs",
+              "ToolTip": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Services\\Interfaces\\IAuthService.cs",
+              "RelativeToolTip": "AndreiSoftAPI\\Services\\Interfaces\\IAuthService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-01T15:53:01.844Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IStatusLoggerService.cs",
+              "DocumentMoniker": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Services\\Interfaces\\IStatusLoggerService.cs",
+              "RelativeDocumentMoniker": "AndreiSoftAPI\\Services\\Interfaces\\IStatusLoggerService.cs",
+              "ToolTip": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Services\\Interfaces\\IStatusLoggerService.cs",
+              "RelativeToolTip": "AndreiSoftAPI\\Services\\Interfaces\\IStatusLoggerService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-01T16:36:04.175Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IUserService.cs",
+              "DocumentMoniker": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Services\\Interfaces\\IUserService.cs",
+              "RelativeDocumentMoniker": "AndreiSoftAPI\\Services\\Interfaces\\IUserService.cs",
+              "ToolTip": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Services\\Interfaces\\IUserService.cs",
+              "RelativeToolTip": "AndreiSoftAPI\\Services\\Interfaces\\IUserService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-01T16:33:43.455Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "RefreshDTO.cs",
+              "DocumentMoniker": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Data\\DTOs\\RefreshDTO.cs",
+              "RelativeDocumentMoniker": "AndreiSoftAPI\\Data\\DTOs\\RefreshDTO.cs",
+              "ToolTip": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Data\\DTOs\\RefreshDTO.cs",
+              "RelativeToolTip": "AndreiSoftAPI\\Data\\DTOs\\RefreshDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-25T13:48:49.091Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "AndreiSoftAPI\\Data\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "AndreiSoftAPI\\Data\\AppDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-25T13:47:38.153Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "RefreshToken.cs",
+              "DocumentMoniker": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Data\\Models\\RefreshToken.cs",
+              "RelativeDocumentMoniker": "AndreiSoftAPI\\Data\\Models\\RefreshToken.cs",
+              "ToolTip": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Data\\Models\\RefreshToken.cs",
+              "RelativeToolTip": "AndreiSoftAPI\\Data\\Models\\RefreshToken.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-25T13:47:21.191Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "RegisterDTO.cs",
+              "DocumentMoniker": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Data\\DTOs\\RegisterDTO.cs",
+              "RelativeDocumentMoniker": "AndreiSoftAPI\\Data\\DTOs\\RegisterDTO.cs",
+              "ToolTip": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Data\\DTOs\\RegisterDTO.cs",
+              "RelativeToolTip": "AndreiSoftAPI\\Data\\DTOs\\RegisterDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-25T13:36:09.034Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "AndreiSoftAPI\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "AndreiSoftAPI\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-25T13:33:57.344Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "LoginDTO.cs",
+              "DocumentMoniker": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Data\\DTOs\\LoginDTO.cs",
+              "RelativeDocumentMoniker": "AndreiSoftAPI\\Data\\DTOs\\LoginDTO.cs",
+              "ToolTip": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Data\\DTOs\\LoginDTO.cs",
+              "RelativeToolTip": "AndreiSoftAPI\\Data\\DTOs\\LoginDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-25T13:36:53.462Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "AndreiSoftAPI\\appsettings.Development.json",
+              "ToolTip": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\appsettings.Development.json",
+              "RelativeToolTip": "AndreiSoftAPI\\appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-01-25T13:26:56.412Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Head.cs",
+              "DocumentMoniker": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Data\\Models\\Head.cs",
+              "RelativeDocumentMoniker": "AndreiSoftAPI\\Data\\Models\\Head.cs",
+              "ToolTip": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Data\\Models\\Head.cs",
+              "RelativeToolTip": "AndreiSoftAPI\\Data\\Models\\Head.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-25T14:02:39.548Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Services\\UserService.cs",
+              "RelativeDocumentMoniker": "AndreiSoftAPI\\Services\\UserService.cs",
+              "ToolTip": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Services\\UserService.cs",
+              "RelativeToolTip": "AndreiSoftAPI\\Services\\UserService.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAASwBYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-25T13:28:17.178Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "IHeadsService.cs",
+              "DocumentMoniker": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Services\\Interfaces\\IHeadsService.cs",
+              "RelativeDocumentMoniker": "AndreiSoftAPI\\Services\\Interfaces\\IHeadsService.cs",
+              "ToolTip": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Services\\Interfaces\\IHeadsService.cs",
+              "RelativeToolTip": "AndreiSoftAPI\\Services\\Interfaces\\IHeadsService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-01T15:54:23.342Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "HeadsController.cs",
+              "DocumentMoniker": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Controllers\\HeadsController.cs",
+              "RelativeDocumentMoniker": "AndreiSoftAPI\\Controllers\\HeadsController.cs",
+              "ToolTip": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Controllers\\HeadsController.cs",
+              "RelativeToolTip": "AndreiSoftAPI\\Controllers\\HeadsController.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAAwC0AAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-25T13:59:17.212Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "HeadsHub.cs",
+              "DocumentMoniker": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Hubs\\HeadsHub.cs",
+              "RelativeDocumentMoniker": "AndreiSoftAPI\\Hubs\\HeadsHub.cs",
+              "ToolTip": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Hubs\\HeadsHub.cs",
+              "RelativeToolTip": "AndreiSoftAPI\\Hubs\\HeadsHub.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-25T13:59:34.261Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "CreateHeadDTO.cs",
+              "DocumentMoniker": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Data\\DTOs\\CreateHeadDTO.cs",
+              "RelativeDocumentMoniker": "AndreiSoftAPI\\Data\\DTOs\\CreateHeadDTO.cs",
+              "ToolTip": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Data\\DTOs\\CreateHeadDTO.cs",
+              "RelativeToolTip": "AndreiSoftAPI\\Data\\DTOs\\CreateHeadDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAQAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-25T13:59:54.717Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\appsettings.json",
+              "RelativeDocumentMoniker": "AndreiSoftAPI\\appsettings.json",
+              "ToolTip": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\appsettings.json",
+              "RelativeToolTip": "AndreiSoftAPI\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-01-25T13:26:49.463Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "ApplicationUser.cs",
+              "DocumentMoniker": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Data\\Models\\ApplicationUser.cs",
+              "RelativeDocumentMoniker": "AndreiSoftAPI\\Data\\Models\\ApplicationUser.cs",
+              "ToolTip": "C:\\Users\\spart\\Desktop\\project\\Andrei-soft\\AndreiSoftAPI\\AndreiSoftAPI\\Data\\Models\\ApplicationUser.cs",
+              "RelativeToolTip": "AndreiSoftAPI\\Data\\Models\\ApplicationUser.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-25T13:22:10.832Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
