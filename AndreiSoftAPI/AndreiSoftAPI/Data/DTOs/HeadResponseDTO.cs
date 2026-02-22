@@ -16,8 +16,8 @@ public class HeadResponseDTO
     public DateTime? CompletedDate { get; set; }
     public string? MechanicId { get; set; }
     public string? MechanicDisplayName { get; set; }
-    public List<string> ServiceNeeds { get; set; } = new();
-    public List<string> CheckedServiceNeeds { get; set; } = new();
+    public List<ServiceNeedResponseDTO> ServiceNeeds { get; set; } = new();
+    public List<int> CheckedServiceNeeds { get; set; } = new();
     public decimal Price { get; set; }
     public decimal MechanicSalary { get; set; }
     public decimal Insurance { get; set; }

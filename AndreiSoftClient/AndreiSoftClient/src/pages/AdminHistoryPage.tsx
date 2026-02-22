@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { apiGetAllHistory, apiGetUsers } from "../services/api";
 import type { HistoryEntry, UserInfo } from "../types/Head";
+import { translateAction, translateStatus } from "../utils/translations";
 
 type GroupMode = "all" | "byHead" | "byMechanic";
 
@@ -21,7 +22,7 @@ export default function AdminHistoryPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div className="page-loader">Loading history...</div>;
+  if (loading) return <div className="page-loader">Зареждане на история...</div>;
 
   const filtered = entries.filter(
     (e) =>
@@ -52,20 +53,20 @@ export default function AdminHistoryPage() {
       <table className="data-table">
         <thead>
           <tr>
-            <th>Timestamp</th>
-            <th>Head</th>
-            <th>Action</th>
-            <th>Description</th>
-            <th>Changed By</th>
-            <th>Mechanic</th>
-            <th>Status</th>
-            <th>Price</th>
+            <th>Дата</th>
+            <th>Глава</th>
+            <th>Действие</th>
+            <th>Описание</th>
+            <th>Променено от</th>
+            <th>Механик</th>
+            <th>Статус</th>
+            <th>Цена</th>
           </tr>
         </thead>
         <tbody>
           {items.length === 0 ? (
             <tr>
-              <td colSpan={8} className="empty-row">No history entries</td>
+              <td colSpan={8} className="empty-row">Няма записи в историята</td>
             </tr>
           ) : (
             items.map((e) => (
@@ -74,12 +75,12 @@ export default function AdminHistoryPage() {
                 <td>
                   <strong>#{e.headId}</strong> {e.headSummary}
                 </td>
-                <td><span className={actionBadgeClass(e.action)}>{e.action}</span></td>
+                <td><span className={actionBadgeClass(e.action)}>{translateAction(e.action)}</span></td>
                 <td className="history-description">{e.description}</td>
                 <td>{e.changedByDisplayName || "—"}</td>
                 <td>{e.mechanicDisplayName || "—"}</td>
-                <td><span className="badge">{e.status}</span></td>
-                <td className="price">${e.price.toFixed(2)}</td>
+                <td><span className="badge">{translateStatus(e.status)}</span></td>
+                <td className="price">{e.price.toFixed(2)} €</td>
               </tr>
             ))
           )}
@@ -112,7 +113,7 @@ export default function AdminHistoryPage() {
         return;
       }
       if (!map.has(mechId))
-        map.set(mechId, { name: e.mechanicDisplayName || "Unknown", items: [] });
+        map.set(mechId, { name: e.mechanicDisplayName || "Неизвестен", items: [] });
       map.get(mechId)!.items.push(e);
     });
 
@@ -120,7 +121,7 @@ export default function AdminHistoryPage() {
       map.entries()
     );
     if (unassigned.length > 0) {
-      result.push(["unassigned", { name: "No Mechanic Assigned", items: unassigned }]);
+      result.push(["unassigned", { name: "Без назначен механик", items: unassigned }]);
     }
     return result;
   };
@@ -128,21 +129,21 @@ export default function AdminHistoryPage() {
   return (
     <div>
       <div className="page-header">
-        <h2>History</h2>
-        <span className="badge">{filtered.length} entries</span>
+        <h2>История</h2>
+        <span className="badge">{filtered.length} записа</span>
       </div>
 
       <div className="filters-bar">
         <input
           className="search-input"
-          placeholder="Search history..."
+          placeholder="Търсене в историята..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <select value={groupMode} onChange={(e) => setGroupMode(e.target.value as GroupMode)}>
-          <option value="all">All (Flat)</option>
-          <option value="byHead">Group by Head</option>
-          <option value="byMechanic">Group by Mechanic</option>
+          <option value="all">Всички</option>
+          <option value="byHead">Групиране по глава</option>
+          <option value="byMechanic">Групиране по механик</option>
         </select>
       </div>
 
@@ -155,7 +156,7 @@ export default function AdminHistoryPage() {
               <h3>
                 #{headId} — {summary}
               </h3>
-              <span className="badge">{items.length} entries</span>
+              <span className="badge">{items.length} записа</span>
             </div>
             {renderTable(items)}
           </div>
@@ -166,7 +167,7 @@ export default function AdminHistoryPage() {
           <div key={mechId} className="history-group">
             <div className="history-group-header">
               <h3>{name}</h3>
-              <span className="badge">{items.length} entries</span>
+              <span className="badge">{items.length} записа</span>
             </div>
             {renderTable(items)}
           </div>

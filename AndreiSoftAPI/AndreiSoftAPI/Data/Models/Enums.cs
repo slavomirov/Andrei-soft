@@ -16,17 +16,3 @@ public enum HeadAction
     Finished,
     GivenToClient
 }
-
-public enum ServiceNeedType
-{
-    ValveSeatMachining,
-    ValveGuidesReplacement,
-    SurfaceGrinding,
-    CrackTesting,
-    CleaningAndWashing,
-    SpringTesting,
-    SealReplacement,
-    PortingAndPolishing,
-    AssemblyWork,
-    PressureTesting
-}

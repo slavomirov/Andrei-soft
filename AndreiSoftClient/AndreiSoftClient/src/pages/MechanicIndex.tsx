@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import type { Head } from "../types/Head";
 import { apiGetAvailableHeads, apiStartHead } from "../services/api";
 import { useSignalR } from "../hooks/useSignalR";
+import { translateStatus } from "../utils/translations";
 
 export default function MechanicIndex() {
   const [heads, setHeads] = useState<Head[]>([]);
@@ -45,25 +46,25 @@ export default function MechanicIndex() {
       await apiStartHead(id);
       navigate(`/mechanic/heads/${id}`);
     } catch (err) {
-      alert(err instanceof Error ? err.message : "Failed to start work");
+      alert(err instanceof Error ? err.message : "Неуспешно започване на работа");
     } finally {
       setStartingId(null);
     }
   };
 
-  if (loading) return <div className="page-loader">Loading...</div>;
+  if (loading) return <div className="page-loader">Зареждане...</div>;
 
   return (
     <div>
       <div className="page-header">
-        <h2>Available Heads</h2>
-        <span className={`connection-dot ${connected ? "online" : "offline"}`} title={connected ? "Live" : "Connecting..."} />
+        <h2>Налични глави</h2>
+        <span className={`connection-dot ${connected ? "online" : "offline"}`} title={connected ? "На живо" : "Свързване..."} />
       </div>
 
       {heads.length === 0 ? (
         <div className="empty-state">
-          <p>No available heads at the moment.</p>
-          <p className="text-muted">New heads will appear here in real-time.</p>
+          <p>Няма налични глави в момента.</p>
+          <p className="text-muted">Нови глави ще се появят тук в реално време.</p>
         </div>
       ) : (
         <div className="cards-grid">
@@ -71,25 +72,25 @@ export default function MechanicIndex() {
             <div key={h.id} className="head-card">
               <div className="head-card-header">
                 <span className="head-card-id">#{h.id}</span>
-                <span className="badge badge-blue">{h.status}</span>
+                <span className="badge badge-blue">{translateStatus(h.status)}</span>
               </div>
               <h3>{h.make} {h.model} <span className="year">({h.year})</span></h3>
-              <p className="part-number">Part: <code>{h.partNumber}</code></p>
-              <p>Owner: {h.ownerFirstName} {h.ownerLastName}</p>
-              <p>Service: {h.serviceName}</p>
+              <p className="part-number">Част: <code>{h.partNumber}</code></p>
+              <p>Собственик: {h.ownerFirstName} {h.ownerLastName}</p>
+              <p>Сервиз: {h.serviceName}</p>
               <div className="head-card-needs">
                 {h.serviceNeeds.map((n) => (
-                  <span key={n} className="need-tag">{n}</span>
+                  <span key={n.id} className="need-tag">{n.name}</span>
                 ))}
               </div>
               <div className="head-card-footer">
-                <span className="price">${h.price.toFixed(2)}</span>
+                <span className="price">{h.price.toFixed(2)} €</span>
                 <button
                   className="btn btn-primary"
                   onClick={() => handleStart(h.id)}
                   disabled={startingId === h.id}
                 >
-                  {startingId === h.id ? "Starting..." : "▶ Start Work"}
+                  {startingId === h.id ? "Започване..." : "▶ Започни работа"}
                 </button>
               </div>
             </div>

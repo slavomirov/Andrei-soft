@@ -13,17 +13,18 @@ export interface Head {
   completedDate?: string | null;
   mechanicId?: string | null;
   mechanicDisplayName?: string | null;
-  serviceNeeds: string[];
-  checkedServiceNeeds: string[];
+  serviceNeeds: ServiceNeedInfo[];
+  checkedServiceNeeds: number[];
   price: number;
   mechanicSalary: number;
   insurance: number;
 }
 
 export interface ServiceNeedInfo {
+  id: number;
   name: string;
-  displayName: string;
   price: number;
+  isActive?: boolean;
 }
 
 export interface AuthUser {
@@ -58,5 +59,4 @@ export interface HistoryEntry {
   changedByDisplayName?: string | null;
   price: number;
   timestamp: string;
-}
 }

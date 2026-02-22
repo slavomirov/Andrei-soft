@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { apiGetMyWorkHistory } from "../services/api";
 import type { HistoryEntry } from "../types/Head";
+import { translateAction, translateStatus } from "../utils/translations";
 
 export default function MechanicHistoryPage() {
   const [entries, setEntries] = useState<HistoryEntry[]>([]);
@@ -14,7 +15,7 @@ export default function MechanicHistoryPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div className="page-loader">Loading your work history...</div>;
+  if (loading) return <div className="page-loader">Зареждане на история...</div>;
 
   const filtered = entries.filter(
     (e) =>
@@ -48,14 +49,14 @@ export default function MechanicHistoryPage() {
   return (
     <div>
       <div className="page-header">
-        <h2>My Work History</h2>
-        <span className="badge">{filtered.length} entries</span>
+        <h2>Моята история</h2>
+        <span className="badge">{filtered.length} записа</span>
       </div>
 
       <div className="filters-bar">
         <input
           className="search-input"
-          placeholder="Search your history..."
+          placeholder="Търсене в историята..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
@@ -63,8 +64,8 @@ export default function MechanicHistoryPage() {
 
       {filtered.length === 0 ? (
         <div className="empty-state">
-          <p>No work history found.</p>
-          <p className="text-muted">Your actions on heads will appear here.</p>
+          <p>Няма намерена история.</p>
+          <p className="text-muted">Вашите действия по главите ще се появят тук.</p>
         </div>
       ) : (
         Array.from(grouped.entries())
@@ -75,17 +76,17 @@ export default function MechanicHistoryPage() {
                 <h3>
                   #{headId} — {summary}
                 </h3>
-                <span className="badge">{items.length} actions</span>
+                <span className="badge">{items.length} действия</span>
               </div>
               <div className="table-wrapper">
                 <table className="data-table">
                   <thead>
                     <tr>
-                      <th>Timestamp</th>
-                      <th>Action</th>
-                      <th>Description</th>
-                      <th>Status</th>
-                      <th>Price</th>
+                      <th>Дата</th>
+                      <th>Действие</th>
+                      <th>Описание</th>
+                      <th>Статус</th>
+                      <th>Цена</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -93,13 +94,13 @@ export default function MechanicHistoryPage() {
                       <tr key={e.id}>
                         <td style={{ whiteSpace: "nowrap" }}>{formatDate(e.timestamp)}</td>
                         <td>
-                          <span className={actionBadgeClass(e.action)}>{e.action}</span>
+                          <span className={actionBadgeClass(e.action)}>{translateAction(e.action)}</span>
                         </td>
                         <td className="history-description">{e.description}</td>
                         <td>
-                          <span className="badge">{e.status}</span>
+                          <span className="badge">{translateStatus(e.status)}</span>
                         </td>
-                        <td className="price">${e.price.toFixed(2)}</td>
+                        <td className="price">{e.price.toFixed(2)} €</td>
                       </tr>
                     ))}
                   </tbody>

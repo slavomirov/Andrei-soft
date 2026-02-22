@@ -7,7 +7,7 @@ export default function EditHeadForm() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [catalog, setCatalog] = useState<ServiceNeedInfo[]>([]);
-  const [selectedNeeds, setSelectedNeeds] = useState<Set<string>>(new Set());
+  const [selectedNeeds, setSelectedNeeds] = useState<Set<number>>(new Set());
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [head, setHead] = useState<Head | null>(null);
@@ -32,20 +32,20 @@ export default function EditHeadForm() {
         serviceName: h.serviceName, servicePhoneNumber: h.servicePhoneNumber,
         status: h.status,
       });
-      setSelectedNeeds(new Set(h.serviceNeeds));
+      setSelectedNeeds(new Set(h.serviceNeeds.map((sn: ServiceNeedInfo) => sn.id)));
     }).catch(console.error);
   }, [id]);
 
-  const toggleNeed = (name: string) => {
+  const toggleNeed = (id: number) => {
     setSelectedNeeds((prev) => {
       const next = new Set(prev);
-      next.has(name) ? next.delete(name) : next.add(name);
+      next.has(id) ? next.delete(id) : next.add(id);
       return next;
     });
   };
 
   const totalPrice = catalog
-    .filter((n) => selectedNeeds.has(n.name))
+    .filter((n) => selectedNeeds.has(n.id))
     .reduce((s, n) => s + n.price, 0);
 
   const handleSubmit = async (e: FormEvent) => {
@@ -60,7 +60,7 @@ export default function EditHeadForm() {
       });
       navigate("/admin");
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "Failed to update");
+      setError(err instanceof Error ? err.message : "Неуспешно актуализиране");
     } finally {
       setLoading(false);
     }
@@ -73,93 +73,93 @@ export default function EditHeadForm() {
     }));
   };
 
-  if (!head) return <div className="page-loader">Loading...</div>;
+  if (!head) return <div className="page-loader">Зареждане...</div>;
 
   return (
     <div>
-      <div className="page-header"><h2>Edit Head #{head.id}</h2></div>
+      <div className="page-header"><h2>Редактиране на глава #{head.id}</h2></div>
 
       <form onSubmit={handleSubmit} className="form-card">
         <div className="form-section">
-          <h3>Vehicle / Part Info</h3>
+          <h3>Информация за автомобил / Част</h3>
           <div className="form-grid">
             <div className="form-group">
-              <label>Make</label>
+              <label>Марка</label>
               <input value={form.make} onChange={handleChange("make")} required />
             </div>
             <div className="form-group">
-              <label>Model</label>
+              <label>Модел</label>
               <input value={form.model} onChange={handleChange("model")} required />
             </div>
             <div className="form-group">
-              <label>Year</label>
+              <label>Година</label>
               <input type="number" value={form.year} onChange={handleChange("year")} required />
             </div>
             <div className="form-group">
-              <label>Part Number</label>
+              <label>Част №</label>
               <input value={form.partNumber} onChange={handleChange("partNumber")} required />
             </div>
           </div>
         </div>
 
         <div className="form-section">
-          <h3>Owner Info</h3>
+          <h3>Информация за собственик</h3>
           <div className="form-grid">
             <div className="form-group">
-              <label>First Name</label>
+              <label>Име</label>
               <input value={form.ownerFirstName} onChange={handleChange("ownerFirstName")} required />
             </div>
             <div className="form-group">
-              <label>Last Name</label>
+              <label>Фамилия</label>
               <input value={form.ownerLastName} onChange={handleChange("ownerLastName")} required />
             </div>
           </div>
         </div>
 
         <div className="form-section">
-          <h3>Service Contact</h3>
+          <h3>Контакт за сервиз</h3>
           <div className="form-grid">
             <div className="form-group">
-              <label>Service Name</label>
+              <label>Име на сервиз</label>
               <input value={form.serviceName} onChange={handleChange("serviceName")} required />
             </div>
             <div className="form-group">
-              <label>Phone Number</label>
+              <label>Телефонен номер</label>
               <input value={form.servicePhoneNumber} onChange={handleChange("servicePhoneNumber")} required />
             </div>
           </div>
         </div>
 
         <div className="form-section">
-          <h3>Status</h3>
+          <h3>Статус</h3>
           <select value={form.status} onChange={handleChange("status")}>
-            <option value="Added">Added</option>
-            <option value="WorkingOn">Working On</option>
-            <option value="Completed">Completed</option>
-            <option value="GivenToClient">Given To Client</option>
+            <option value="Added">Добавена</option>
+            <option value="WorkingOn">В обработка</option>
+            <option value="Completed">Завършена</option>
+            <option value="GivenToClient">Предадена на клиент</option>
           </select>
         </div>
 
         <div className="form-section">
-          <h3>Service Needs</h3>
+          <h3>Необходими услуги</h3>
           <div className="service-needs-grid">
             {catalog.map((n) => (
-              <label key={n.name} className={`need-checkbox ${selectedNeeds.has(n.name) ? "selected" : ""}`}>
-                <input type="checkbox" checked={selectedNeeds.has(n.name)} onChange={() => toggleNeed(n.name)} />
-                <span className="need-name">{n.displayName}</span>
-                <span className="need-price">${n.price.toFixed(2)}</span>
+              <label key={n.id} className={`need-checkbox ${selectedNeeds.has(n.id) ? "selected" : ""}`}>
+                <input type="checkbox" checked={selectedNeeds.has(n.id)} onChange={() => toggleNeed(n.id)} />
+                <span className="need-name">{n.name}</span>
+                <span className="need-price">{n.price.toFixed(2)} €</span>
               </label>
             ))}
           </div>
-          <div className="price-summary"><strong>Total Price: ${totalPrice.toFixed(2)}</strong></div>
+          <div className="price-summary"><strong>Обща цена: {totalPrice.toFixed(2)} €</strong></div>
         </div>
 
         {error && <div className="alert alert-error">{error}</div>}
 
         <div className="form-actions">
-          <button type="button" className="btn btn-outline" onClick={() => navigate("/admin")}>Cancel</button>
+          <button type="button" className="btn btn-outline" onClick={() => navigate("/admin")}>Отказ</button>
           <button type="submit" className="btn btn-primary" disabled={loading}>
-            {loading ? "Saving..." : "Save Changes"}
+            {loading ? "Запазване..." : "Запази промените"}
           </button>
         </div>
       </form>

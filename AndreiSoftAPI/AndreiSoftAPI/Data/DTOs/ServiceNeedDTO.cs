@@ -4,5 +4,5 @@ namespace AndreiSoftAPI.Data.DTOs;
 
 public class ServiceNeedDTO
 {
-    [Required] public string ServiceNeed { get; set; } = string.Empty;
+    [Required] public int ServiceNeedId { get; set; }
 }

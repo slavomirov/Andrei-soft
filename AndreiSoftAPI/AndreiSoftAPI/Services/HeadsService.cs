@@ -1,5 +1,4 @@
-﻿using AndreiSoftAPI.Config;
-using AndreiSoftAPI.Data;
+﻿using AndreiSoftAPI.Data;
 using AndreiSoftAPI.Data.DTOs;
 using AndreiSoftAPI.Data.Models;
 using AndreiSoftAPI.Services.Interfaces;
@@ -18,16 +17,43 @@ public class HeadsService : IHeadsService
         _logger = logger;
     }
 
-    // ── Mapping helper ──────────────────────────────────────────
-    private static HeadResponseDTO MapToDTO(Head h)
+    // ── Helpers ─────────────────────────────────────────────────
+    private async Task<Dictionary<int, ServiceNeed>> GetNeedsLookupAsync()
     {
-        var needs = string.IsNullOrWhiteSpace(h.ServiceNeeds)
-            ? new List<string>()
-            : h.ServiceNeeds.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
+        return await _db.ServiceNeeds.ToDictionaryAsync(sn => sn.Id);
+    }
 
-        var checkedNeeds = string.IsNullOrWhiteSpace(h.CheckedServiceNeeds)
-            ? new List<string>()
-            : h.CheckedServiceNeeds.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
+    private static List<int> ParseIds(string csv)
+    {
+        if (string.IsNullOrWhiteSpace(csv)) return new List<int>();
+        return csv.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            .Where(s => int.TryParse(s, out _))
+            .Select(int.Parse)
+            .ToList();
+    }
+
+    private static decimal CalculatePrice(List<int> needIds, Dictionary<int, ServiceNeed> lookup)
+    {
+        return needIds
+            .Where(id => lookup.ContainsKey(id))
+            .Sum(id => lookup[id].Price);
+    }
+
+    private static HeadResponseDTO MapToDTO(Head h, Dictionary<int, ServiceNeed> lookup)
+    {
+        var needIds = ParseIds(h.ServiceNeeds);
+        var checkedIds = ParseIds(h.CheckedServiceNeeds);
+
+        var serviceNeeds = needIds
+            .Where(id => lookup.ContainsKey(id))
+            .Select(id => new ServiceNeedResponseDTO
+            {
+                Id = lookup[id].Id,
+                Name = lookup[id].Name,
+                Price = lookup[id].Price,
+                IsActive = lookup[id].IsActive,
+            })
+            .ToList();
 
         return new HeadResponseDTO
         {
@@ -45,45 +71,50 @@ public class HeadsService : IHeadsService
             CompletedDate = h.CompletedDate,
             MechanicId = h.MechanicId,
             MechanicDisplayName = h.MechanicDisplayName,
-            ServiceNeeds = needs,
-            CheckedServiceNeeds = checkedNeeds,
+            ServiceNeeds = serviceNeeds,
+            CheckedServiceNeeds = checkedIds,
             Price = h.Price,
-            MechanicSalary = ServiceNeedsConfig.CalculateMechanicSalary(h.Price),
-            Insurance = ServiceNeedsConfig.CalculateInsurance(h.Price),
+            MechanicSalary = Math.Round(h.Price * 0.25m, 2),
+            Insurance = Math.Round(h.Price * 0.05m, 2),
         };
     }
 
     // ── Queries ─────────────────────────────────────────────────
     public async Task<List<HeadResponseDTO>> GetAllAsync()
     {
+        var lookup = await GetNeedsLookupAsync();
         var heads = await _db.Heads
             .OrderByDescending(h => h.CreateDate)
             .ToListAsync();
 
-        return heads.Select(MapToDTO).ToList();
+        return heads.Select(h => MapToDTO(h, lookup)).ToList();
     }
 
     public async Task<List<HeadResponseDTO>> GetAvailableAsync()
     {
+        var lookup = await GetNeedsLookupAsync();
         var heads = await _db.Heads
             .Where(h => h.Status == HeadStatus.Added && h.MechanicId == null)
             .OrderByDescending(h => h.CreateDate)
             .ToListAsync();
 
-        return heads.Select(MapToDTO).ToList();
+        return heads.Select(h => MapToDTO(h, lookup)).ToList();
     }
 
     public async Task<HeadResponseDTO?> GetByIdAsync(int id)
     {
         var head = await _db.Heads.FindAsync(id);
-        return head == null ? null : MapToDTO(head);
+        if (head == null) return null;
+        var lookup = await GetNeedsLookupAsync();
+        return MapToDTO(head, lookup);
     }
 
     // ── Create (Admin) ──────────────────────────────────────────
     public async Task<HeadResponseDTO> CreateAsync(CreateHeadDTO dto, string userId, string userDisplayName)
     {
+        var lookup = await GetNeedsLookupAsync();
         var csv = string.Join(",", dto.ServiceNeeds);
-        var price = ServiceNeedsConfig.CalculatePrice(csv);
+        var price = CalculatePrice(dto.ServiceNeeds, lookup);
 
         var head = new Head
         {
@@ -106,10 +137,10 @@ public class HeadsService : IHeadsService
         await _db.SaveChangesAsync();
 
         await _logger.LogAsync(head, "Created",
-            $"Head created: {head.Make} {head.Model} ({head.Year}), PN: {head.PartNumber}, Price: ${head.Price}",
+            $"Head created: {head.Make} {head.Model} ({head.Year}), PN: {head.PartNumber}, Price: {head.Price} \u20AC",
             userId, userDisplayName);
 
-        return MapToDTO(head);
+        return MapToDTO(head, lookup);
     }
 
     // ── Update (Admin) ──────────────────────────────────────────
@@ -117,6 +148,8 @@ public class HeadsService : IHeadsService
     {
         var head = await _db.Heads.FindAsync(id)
             ?? throw new Exception("Head not found");
+
+        var lookup = await GetNeedsLookupAsync();
 
         head.Make = dto.Make;
         head.Model = dto.Model;
@@ -127,7 +160,7 @@ public class HeadsService : IHeadsService
         head.ServiceName = dto.ServiceName;
         head.ServicePhoneNumber = dto.ServicePhoneNumber;
         head.ServiceNeeds = string.Join(",", dto.ServiceNeeds);
-        head.Price = ServiceNeedsConfig.CalculatePrice(head.ServiceNeeds);
+        head.Price = CalculatePrice(dto.ServiceNeeds, lookup);
         head.UpdatedAt = DateTime.UtcNow;
 
         if (!string.IsNullOrEmpty(dto.Status) && Enum.TryParse<HeadStatus>(dto.Status, out var status))
@@ -136,10 +169,10 @@ public class HeadsService : IHeadsService
         await _db.SaveChangesAsync();
 
         await _logger.LogAsync(head, "Updated",
-            $"Head updated: {head.Make} {head.Model} ({head.Year}), Status: {head.Status}, Price: ${head.Price}",
+            $"Head updated: {head.Make} {head.Model} ({head.Year}), Status: {head.Status}, Price: {head.Price} \u20AC",
             userId, userDisplayName);
 
-        return MapToDTO(head);
+        return MapToDTO(head, lookup);
     }
 
     // ── Delete ──────────────────────────────────────────────────
@@ -148,9 +181,6 @@ public class HeadsService : IHeadsService
         var head = await _db.Heads.FindAsync(id)
             ?? throw new Exception("Head not found");
 
-        var summary = $"{head.Make} {head.Model} ({head.Year})";
-
-        // Remove related logs first (cascade won't fire for soft ref)
         var relatedLogs = await _db.Logs.Where(l => l.HeadId == id).ToListAsync();
         _db.Logs.RemoveRange(relatedLogs);
 
@@ -178,7 +208,8 @@ public class HeadsService : IHeadsService
             $"Mechanic {mechanicDisplayName} started working on {head.Make} {head.Model} ({head.Year})",
             mechanicId, mechanicDisplayName);
 
-        return MapToDTO(head);
+        var lookup = await GetNeedsLookupAsync();
+        return MapToDTO(head, lookup);
     }
 
     // ── Finish (Mechanic) ───────────────────────────────────────
@@ -200,93 +231,94 @@ public class HeadsService : IHeadsService
             $"Mechanic {mechanicDisplayName} finished work on {head.Make} {head.Model} ({head.Year})",
             mechanicId, mechanicDisplayName);
 
-        return MapToDTO(head);
+        var lookup = await GetNeedsLookupAsync();
+        return MapToDTO(head, lookup);
     }
 
     // ── Add Service Need ────────────────────────────────────────
-    public async Task<HeadResponseDTO> AddServiceNeedAsync(int headId, string serviceNeed, string userId, string userDisplayName)
+    public async Task<HeadResponseDTO> AddServiceNeedAsync(int headId, int serviceNeedId, string userId, string userDisplayName)
     {
         var head = await _db.Heads.FindAsync(headId)
             ?? throw new Exception("Head not found");
 
-        var needs = string.IsNullOrWhiteSpace(head.ServiceNeeds)
-            ? new List<string>()
-            : head.ServiceNeeds.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
+        var lookup = await GetNeedsLookupAsync();
+        if (!lookup.ContainsKey(serviceNeedId))
+            throw new Exception("Service need not found");
 
-        if (!needs.Contains(serviceNeed))
+        var needIds = ParseIds(head.ServiceNeeds);
+
+        if (!needIds.Contains(serviceNeedId))
         {
-            needs.Add(serviceNeed);
-            head.ServiceNeeds = string.Join(",", needs);
-            head.Price = ServiceNeedsConfig.CalculatePrice(head.ServiceNeeds);
+            needIds.Add(serviceNeedId);
+            head.ServiceNeeds = string.Join(",", needIds);
+            head.Price = CalculatePrice(needIds, lookup);
             head.UpdatedAt = DateTime.UtcNow;
             await _db.SaveChangesAsync();
 
+            var needName = lookup[serviceNeedId].Name;
             await _logger.LogAsync(head, "ServiceNeedAdded",
-                $"Service need '{serviceNeed}' added to {head.Make} {head.Model} ({head.Year}). New price: ${head.Price}",
+                $"Service need '{needName}' added to {head.Make} {head.Model} ({head.Year}). New price: {head.Price} \u20AC",
                 userId, userDisplayName);
         }
 
-        return MapToDTO(head);
+        return MapToDTO(head, lookup);
     }
 
     // ── Remove Service Need ─────────────────────────────────────
-    public async Task<HeadResponseDTO> RemoveServiceNeedAsync(int headId, string serviceNeed, string userId, string userDisplayName)
+    public async Task<HeadResponseDTO> RemoveServiceNeedAsync(int headId, int serviceNeedId, string userId, string userDisplayName)
     {
         var head = await _db.Heads.FindAsync(headId)
             ?? throw new Exception("Head not found");
 
-        var needs = string.IsNullOrWhiteSpace(head.ServiceNeeds)
-            ? new List<string>()
-            : head.ServiceNeeds.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
+        var lookup = await GetNeedsLookupAsync();
+        var needIds = ParseIds(head.ServiceNeeds);
 
-        if (needs.Remove(serviceNeed))
+        if (needIds.Remove(serviceNeedId))
         {
-            head.ServiceNeeds = string.Join(",", needs);
-            head.Price = ServiceNeedsConfig.CalculatePrice(head.ServiceNeeds);
+            head.ServiceNeeds = string.Join(",", needIds);
+            head.Price = CalculatePrice(needIds, lookup);
 
-            // also remove from checked if present
-            var checkedNeeds = string.IsNullOrWhiteSpace(head.CheckedServiceNeeds)
-                ? new List<string>()
-                : head.CheckedServiceNeeds.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
-            checkedNeeds.Remove(serviceNeed);
-            head.CheckedServiceNeeds = string.Join(",", checkedNeeds);
+            var checkedIds = ParseIds(head.CheckedServiceNeeds);
+            checkedIds.Remove(serviceNeedId);
+            head.CheckedServiceNeeds = string.Join(",", checkedIds);
 
             head.UpdatedAt = DateTime.UtcNow;
             await _db.SaveChangesAsync();
 
+            var needName = lookup.ContainsKey(serviceNeedId) ? lookup[serviceNeedId].Name : serviceNeedId.ToString();
             await _logger.LogAsync(head, "ServiceNeedRemoved",
-                $"Service need '{serviceNeed}' removed from {head.Make} {head.Model} ({head.Year}). New price: ${head.Price}",
+                $"Service need '{needName}' removed from {head.Make} {head.Model} ({head.Year}). New price: {head.Price} \u20AC",
                 userId, userDisplayName);
         }
 
-        return MapToDTO(head);
+        return MapToDTO(head, lookup);
     }
 
     // ── Check Service Need (mark completed) ─────────────────────
-    public async Task<HeadResponseDTO> CheckServiceNeedAsync(int headId, string serviceNeed, string userId, string userDisplayName)
+    public async Task<HeadResponseDTO> CheckServiceNeedAsync(int headId, int serviceNeedId, string userId, string userDisplayName)
     {
         var head = await _db.Heads.FindAsync(headId)
             ?? throw new Exception("Head not found");
 
-        var checkedNeeds = string.IsNullOrWhiteSpace(head.CheckedServiceNeeds)
-            ? new List<string>()
-            : head.CheckedServiceNeeds.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
+        var checkedIds = ParseIds(head.CheckedServiceNeeds);
 
-        var wasChecked = checkedNeeds.Contains(serviceNeed);
+        var wasChecked = checkedIds.Contains(serviceNeedId);
         if (wasChecked)
-            checkedNeeds.Remove(serviceNeed); // toggle off
+            checkedIds.Remove(serviceNeedId);
         else
-            checkedNeeds.Add(serviceNeed); // toggle on
+            checkedIds.Add(serviceNeedId);
 
-        head.CheckedServiceNeeds = string.Join(",", checkedNeeds);
+        head.CheckedServiceNeeds = string.Join(",", checkedIds);
         head.UpdatedAt = DateTime.UtcNow;
         await _db.SaveChangesAsync();
 
+        var lookup = await GetNeedsLookupAsync();
+        var needName = lookup.ContainsKey(serviceNeedId) ? lookup[serviceNeedId].Name : serviceNeedId.ToString();
         var toggleAction = wasChecked ? "unchecked" : "checked";
         await _logger.LogAsync(head, "ServiceNeedChecked",
-            $"Service need '{serviceNeed}' {toggleAction} on {head.Make} {head.Model} ({head.Year})",
+            $"Service need '{needName}' {toggleAction} on {head.Make} {head.Model} ({head.Year})",
             userId, userDisplayName);
 
-        return MapToDTO(head);
+        return MapToDTO(head, lookup);
     }
 }

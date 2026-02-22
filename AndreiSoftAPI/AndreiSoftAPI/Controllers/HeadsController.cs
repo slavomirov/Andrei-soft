@@ -1,5 +1,4 @@
-﻿using AndreiSoftAPI.Config;
-using AndreiSoftAPI.Data.DTOs;
+﻿using AndreiSoftAPI.Data.DTOs;
 using AndreiSoftAPI.Data.Models;
 using AndreiSoftAPI.Hubs;
 using AndreiSoftAPI.Services.Interfaces;
@@ -116,7 +115,7 @@ public class HeadsController : ControllerBase
     [Authorize(Roles = "Mechanic,Administrator")]
     public async Task<IActionResult> AddServiceNeed(int id, [FromBody] ServiceNeedDTO dto)
     {
-        var head = await _service.AddServiceNeedAsync(id, dto.ServiceNeed, GetUserId(), GetDisplayName());
+        var head = await _service.AddServiceNeedAsync(id, dto.ServiceNeedId, GetUserId(), GetDisplayName());
         await _hub.Clients.All.SendAsync("HeadUpdated", head);
         return Ok(head);
     }
@@ -125,7 +124,7 @@ public class HeadsController : ControllerBase
     [Authorize(Roles = "Mechanic,Administrator")]
     public async Task<IActionResult> RemoveServiceNeed(int id, [FromBody] ServiceNeedDTO dto)
     {
-        var head = await _service.RemoveServiceNeedAsync(id, dto.ServiceNeed, GetUserId(), GetDisplayName());
+        var head = await _service.RemoveServiceNeedAsync(id, dto.ServiceNeedId, GetUserId(), GetDisplayName());
         await _hub.Clients.All.SendAsync("HeadUpdated", head);
         return Ok(head);
     }
@@ -134,22 +133,8 @@ public class HeadsController : ControllerBase
     [Authorize(Roles = "Mechanic")]
     public async Task<IActionResult> CheckServiceNeed(int id, [FromBody] ServiceNeedDTO dto)
     {
-        var head = await _service.CheckServiceNeedAsync(id, dto.ServiceNeed, GetUserId(), GetDisplayName());
+        var head = await _service.CheckServiceNeedAsync(id, dto.ServiceNeedId, GetUserId(), GetDisplayName());
         await _hub.Clients.All.SendAsync("HeadUpdated", head);
         return Ok(head);
-    }
-
-    // ── Service needs catalogue ──────────────────────────────────
-
-    [HttpGet("service-needs")]
-    public IActionResult GetServiceNeeds()
-    {
-        var needs = ServiceNeedsConfig.Prices.Select(kv => new
-        {
-            Name = kv.Key.ToString(),
-            DisplayName = ServiceNeedsConfig.DisplayNames[kv.Key],
-            Price = kv.Value,
-        });
-        return Ok(needs);
     }
 }

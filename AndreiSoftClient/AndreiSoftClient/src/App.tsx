@@ -7,6 +7,7 @@ import CreateHeadForm from "./pages/CreateHeadForm";
 import EditHeadForm from "./pages/EditHeadForm";
 import AdminHeadDetails from "./pages/AdminHeadDetails";
 import UserManagement from "./pages/UserManagement";
+import ServiceNeedsManagement from "./pages/ServiceNeedsManagement";
 import AdminHistoryPage from "./pages/AdminHistoryPage";
 import MechanicIndex from "./pages/MechanicIndex";
 import MechanicHeadDetails from "./pages/MechanicHeadDetails";
@@ -35,6 +36,7 @@ function AppRoutes() {
         <Route path="/admin/heads/:id" element={<ProtectedRoute role="Administrator"><AdminHeadDetails /></ProtectedRoute>} />
         <Route path="/admin/heads/:id/edit" element={<ProtectedRoute role="Administrator"><EditHeadForm /></ProtectedRoute>} />
         <Route path="/admin/users" element={<ProtectedRoute role="Administrator"><UserManagement /></ProtectedRoute>} />
+        <Route path="/admin/service-needs" element={<ProtectedRoute role="Administrator"><ServiceNeedsManagement /></ProtectedRoute>} />
         <Route path="/admin/history" element={<ProtectedRoute role="Administrator"><AdminHistoryPage /></ProtectedRoute>} />
 
         {/* Mechanic routes */}

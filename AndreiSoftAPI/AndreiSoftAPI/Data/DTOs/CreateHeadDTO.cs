@@ -14,5 +14,5 @@ public class CreateHeadDTO
     [Required] public string ServicePhoneNumber { get; set; } = string.Empty;
 
     /// <summary>List of ServiceNeedType enum names selected by admin</summary>
-    public List<string> ServiceNeeds { get; set; } = new();
+    public List<int> ServiceNeeds { get; set; } = new();
 }

@@ -14,7 +14,7 @@ export default function ChangePasswordPage() {
     e.preventDefault();
     setError("");
     if (form.newPassword !== form.confirmNewPassword) {
-      setError("Passwords don't match");
+      setError("Паролите не съвпадат");
       return;
     }
     try {
@@ -22,31 +22,31 @@ export default function ChangePasswordPage() {
       setSuccess(true);
       setTimeout(() => navigate(isAdmin ? "/admin" : "/mechanic"), 1500);
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "Failed");
+      setError(err instanceof Error ? err.message : "Неуспешно");
     }
   };
 
   return (
     <div>
-      <div className="page-header"><h2>Change Password</h2></div>
+      <div className="page-header"><h2>Смяна на парола</h2></div>
       <form onSubmit={handleSubmit} className="form-card" style={{ maxWidth: 400 }}>
         <div className="form-group">
-          <label>Current Password</label>
+          <label>Текуща парола</label>
           <input type="password" value={form.currentPassword} onChange={(e) => setForm({ ...form, currentPassword: e.target.value })} required />
         </div>
         <div className="form-group">
-          <label>New Password</label>
+          <label>Нова парола</label>
           <input type="password" value={form.newPassword} onChange={(e) => setForm({ ...form, newPassword: e.target.value })} required />
         </div>
         <div className="form-group">
-          <label>Confirm New Password</label>
+          <label>Потвърди нова парола</label>
           <input type="password" value={form.confirmNewPassword} onChange={(e) => setForm({ ...form, confirmNewPassword: e.target.value })} required />
         </div>
         {error && <div className="alert alert-error">{error}</div>}
-        {success && <div className="alert alert-success">Password changed! Redirecting...</div>}
+        {success && <div className="alert alert-success">Паролата е сменена! Пренасочване...</div>}
         <div className="form-actions">
-          <button type="button" className="btn btn-outline" onClick={() => navigate(-1)}>Cancel</button>
-          <button type="submit" className="btn btn-primary">Change Password</button>
+          <button type="button" className="btn btn-outline" onClick={() => navigate(-1)}>Отказ</button>
+          <button type="submit" className="btn btn-primary">Смени паролата</button>
         </div>
       </form>
     </div>

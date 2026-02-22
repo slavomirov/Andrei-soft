@@ -10,6 +10,6 @@ public class UpdateHeadDTO
     public string OwnerLastName { get; set; } = string.Empty;
     public string ServiceName { get; set; } = string.Empty;
     public string ServicePhoneNumber { get; set; } = string.Empty;
-    public List<string> ServiceNeeds { get; set; } = new();
+    public List<int> ServiceNeeds { get; set; } = new();
     public string? Status { get; set; }
 }

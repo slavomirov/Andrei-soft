@@ -21,7 +21,7 @@ export default function LoginPage() {
       if (data.role === "Administrator") navigate("/admin");
       else navigate("/mechanic");
     } catch {
-      setError("Invalid username or password");
+      setError("Невалидно потребителско име или парола");
     } finally {
       setLoading(false);
     }
@@ -32,11 +32,11 @@ export default function LoginPage() {
       <div className="card login-card">
         <div className="card-header">
           <h1>AndreiSoft</h1>
-          <p className="subtitle">Engine Head Service Management</p>
+          <p className="subtitle">Управление на сервиз за глави</p>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="username">Потребителско име</label>
             <input
               id="username"
               type="text"
@@ -44,23 +44,23 @@ export default function LoginPage() {
               onChange={(e) => setUsername(e.target.value)}
               required
               autoFocus
-              placeholder="Enter username"
+              placeholder="Въведете потребителско име"
             />
           </div>
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">Парола</label>
             <input
               id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              placeholder="Enter password"
+              placeholder="Въведете парола"
             />
           </div>
           {error && <div className="alert alert-error">{error}</div>}
           <button type="submit" className="btn btn-primary btn-full" disabled={loading}>
-            {loading ? "Signing in..." : "Sign In"}
+            {loading ? "Влизане..." : "Вход"}
           </button>
         </form>
       </div>

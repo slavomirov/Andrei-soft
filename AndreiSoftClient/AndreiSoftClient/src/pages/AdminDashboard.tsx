@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import type { Head } from "../types/Head";
 import { apiGetAllHeads, apiDeleteHead } from "../services/api";
 import { useSignalR } from "../hooks/useSignalR";
+import { translateStatus } from "../utils/translations";
 
 export default function AdminDashboard() {
   const [heads, setHeads] = useState<Head[]>([]);
@@ -32,7 +33,7 @@ export default function AdminDashboard() {
   );
 
   const handleDelete = async (id: number) => {
-    if (!confirm("Delete this head?")) return;
+    if (!confirm("Изтрий тази глава?")) return;
     await apiDeleteHead(id);
     setHeads((prev) => prev.filter((h) => h.id !== id));
   };
@@ -56,32 +57,32 @@ export default function AdminDashboard() {
     return matchText && matchStatus;
   });
 
-  if (loading) return <div className="page-loader">Loading...</div>;
+  if (loading) return <div className="page-loader">Зареждане...</div>;
 
   return (
     <div>
       <div className="page-header">
-        <h2>All Heads</h2>
+        <h2>Всички глави</h2>
         <div className="header-actions">
-          <span className={`connection-dot ${connected ? "online" : "offline"}`} title={connected ? "Live" : "Connecting..."} />
-          <Link to="/admin/heads/create" className="btn btn-primary">+ New Head</Link>
+          <span className={`connection-dot ${connected ? "online" : "offline"}`} title={connected ? "На живо" : "Свързване..."} />
+          <Link to="/admin/heads/create" className="btn btn-primary">+ Нова глава</Link>
         </div>
       </div>
 
       <div className="filters-bar">
         <input
           type="text"
-          placeholder="Search make, model, part#, owner..."
+          placeholder="Търсене по марка, модел, част №, собственик..."
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
           className="search-input"
         />
         <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
-          <option value="All">All Statuses</option>
-          <option value="Added">Added</option>
-          <option value="WorkingOn">Working On</option>
-          <option value="Completed">Completed</option>
-          <option value="GivenToClient">Given To Client</option>
+          <option value="All">Всички статуси</option>
+          <option value="Added">Добавена</option>
+          <option value="WorkingOn">В обработка</option>
+          <option value="Completed">Завършена</option>
+          <option value="GivenToClient">Предадена на клиент</option>
         </select>
       </div>
 
@@ -89,16 +90,16 @@ export default function AdminDashboard() {
         <table className="data-table">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Make / Model</th>
-              <th>Year</th>
-              <th>Part #</th>
-              <th>Owner</th>
-              <th>Status</th>
-              <th>Mechanic</th>
-              <th>Price</th>
-              <th>Created</th>
-              <th>Actions</th>
+              <th>№</th>
+              <th>Марка / Модел</th>
+              <th>Година</th>
+              <th>Част №</th>
+              <th>Собственик</th>
+              <th>Статус</th>
+              <th>Механик</th>
+              <th>Цена</th>
+              <th>Създадена</th>
+              <th>Действия</th>
             </tr>
           </thead>
           <tbody>
@@ -109,27 +110,27 @@ export default function AdminDashboard() {
                 <td>{h.year}</td>
                 <td><code>{h.partNumber}</code></td>
                 <td>{h.ownerFirstName} {h.ownerLastName}</td>
-                <td><span className={`badge ${statusColor(h.status)}`}>{h.status}</span></td>
+                <td><span className={`badge ${statusColor(h.status)}`}>{translateStatus(h.status)}</span></td>
                 <td>{h.mechanicDisplayName || "—"}</td>
-                <td className="price">${h.price.toFixed(2)}</td>
+                <td className="price">{h.price.toFixed(2)} €</td>
                 <td>{new Date(h.createDate).toLocaleDateString()}</td>
                 <td className="actions-cell">
-                  <Link to={`/admin/heads/${h.id}`} className="btn btn-sm btn-outline">View</Link>
-                  <Link to={`/admin/heads/${h.id}/edit`} className="btn btn-sm btn-outline">Edit</Link>
-                  <button onClick={() => handleDelete(h.id)} className="btn btn-sm btn-danger">Del</button>
+                  <Link to={`/admin/heads/${h.id}`} className="btn btn-sm btn-outline">Преглед</Link>
+                  <Link to={`/admin/heads/${h.id}/edit`} className="btn btn-sm btn-outline">Ред.</Link>
+                  <button onClick={() => handleDelete(h.id)} className="btn btn-sm btn-danger">Изтр.</button>
                 </td>
               </tr>
             ))}
             {filtered.length === 0 && (
-              <tr><td colSpan={10} className="empty-row">No heads found</td></tr>
+              <tr><td colSpan={10} className="empty-row">Няма намерени глави</td></tr>
             )}
           </tbody>
         </table>
       </div>
 
       <div className="summary-bar">
-        <span>Total: {filtered.length}</span>
-        <span>Total Value: ${filtered.reduce((s, h) => s + h.price, 0).toFixed(2)}</span>
+        <span>Общо: {filtered.length}</span>
+        <span>Обща стойност: {filtered.reduce((s, h) => s + h.price, 0).toFixed(2)} €</span>
       </div>
     </div>
   );

@@ -58,19 +58,19 @@ export default function UserManagement() {
   };
 
   const handleDeactivate = async (id: string) => {
-    if (!confirm("Deactivate this user?")) return;
+    if (!confirm("Деактивирай този потребител?")) return;
     await apiDeactivateUser(id);
     setUsers((prev) => prev.map((u) => (u.id === id ? { ...u, isActive: false } : u)));
   };
 
-  if (loading) return <div className="page-loader">Loading...</div>;
+  if (loading) return <div className="page-loader">Зареждане...</div>;
 
   return (
     <div>
       <div className="page-header">
-        <h2>User Management</h2>
+        <h2>Управление на потребители</h2>
         <button className="btn btn-primary" onClick={() => setShowCreate(!showCreate)}>
-          {showCreate ? "Cancel" : "+ New User"}
+          {showCreate ? "Отказ" : "+ Нов потребител"}
         </button>
       </div>
 
@@ -78,38 +78,38 @@ export default function UserManagement() {
 
       {showCreate && (
         <form onSubmit={handleCreate} className="form-card" style={{ marginBottom: "1.5rem" }}>
-          <h3>Create User</h3>
+          <h3>Създаване на потребител</h3>
           <div className="form-grid">
             <div className="form-group">
-              <label>Username</label>
+              <label>Потребителско име</label>
               <input value={createForm.username} onChange={(e) => setCreateForm({ ...createForm, username: e.target.value })} required />
             </div>
             <div className="form-group">
-              <label>First Name</label>
+              <label>Име</label>
               <input value={createForm.firstName} onChange={(e) => setCreateForm({ ...createForm, firstName: e.target.value })} required />
             </div>
             <div className="form-group">
-              <label>Last Name</label>
+              <label>Фамилия</label>
               <input value={createForm.lastName} onChange={(e) => setCreateForm({ ...createForm, lastName: e.target.value })} required />
             </div>
             <div className="form-group">
-              <label>Password</label>
+              <label>Парола</label>
               <input type="password" value={createForm.password} onChange={(e) => setCreateForm({ ...createForm, password: e.target.value })} required />
             </div>
             <div className="form-group">
-              <label>Confirm Password</label>
+              <label>Потвърди парола</label>
               <input type="password" value={createForm.confirmPassword} onChange={(e) => setCreateForm({ ...createForm, confirmPassword: e.target.value })} required />
             </div>
             <div className="form-group">
-              <label>Role</label>
+              <label>Роля</label>
               <select value={createForm.role} onChange={(e) => setCreateForm({ ...createForm, role: e.target.value })}>
-                <option value="Administrator">Administrator</option>
-                <option value="Mechanic">Mechanic</option>
+                <option value="Administrator">Администратор</option>
+                <option value="Mechanic">Механик</option>
               </select>
             </div>
           </div>
           <div className="form-actions">
-            <button type="submit" className="btn btn-primary">Create</button>
+            <button type="submit" className="btn btn-primary">Създай</button>
           </div>
         </form>
       )}
@@ -118,11 +118,11 @@ export default function UserManagement() {
         <table className="data-table">
           <thead>
             <tr>
-              <th>Username</th>
-              <th>Name</th>
-              <th>Role</th>
-              <th>Active</th>
-              <th>Actions</th>
+              <th>Потр. име</th>
+              <th>Име</th>
+              <th>Роля</th>
+              <th>Активен</th>
+              <th>Действия</th>
             </tr>
           </thead>
           <tbody>
@@ -139,8 +139,8 @@ export default function UserManagement() {
                     </td>
                     <td>
                       <select value={editForm.role} onChange={(e) => setEditForm({ ...editForm, role: e.target.value })}>
-                        <option value="Administrator">Administrator</option>
-                        <option value="Mechanic">Mechanic</option>
+                        <option value="Administrator">Администратор</option>
+                        <option value="Mechanic">Механик</option>
                       </select>
                     </td>
                     <td>
@@ -148,9 +148,9 @@ export default function UserManagement() {
                     </td>
                     <td className="actions-cell">
                       <form onSubmit={handleUpdate} style={{ display: "inline" }}>
-                        <button type="submit" className="btn btn-sm btn-primary">Save</button>
+                        <button type="submit" className="btn btn-sm btn-primary">Запази</button>
                       </form>
-                      <button className="btn btn-sm btn-outline" onClick={() => setEditingId(null)}>Cancel</button>
+                      <button className="btn btn-sm btn-outline" onClick={() => setEditingId(null)}>Отказ</button>
                     </td>
                   </>
                 ) : (
@@ -160,9 +160,9 @@ export default function UserManagement() {
                     <td><span className="badge">{u.role}</span></td>
                     <td>{u.isActive ? "✅" : "❌"}</td>
                     <td className="actions-cell">
-                      <button className="btn btn-sm btn-outline" onClick={() => startEdit(u)}>Edit</button>
+                      <button className="btn btn-sm btn-outline" onClick={() => startEdit(u)}>Ред.</button>
                       {u.isActive && (
-                        <button className="btn btn-sm btn-danger" onClick={() => handleDeactivate(u.id)}>Deactivate</button>
+                        <button className="btn btn-sm btn-danger" onClick={() => handleDeactivate(u.id)}>Деактивирай</button>
                       )}
                     </td>
                   </>

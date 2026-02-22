@@ -21,16 +21,17 @@ export default function Layout() {
         <div className="navbar-links">
           {isAdmin && (
             <>
-              <Link to="/admin" className="nav-link">Dashboard</Link>
-              <Link to="/admin/heads/create" className="nav-link">New Head</Link>
-              <Link to="/admin/users" className="nav-link">Users</Link>
-              <Link to="/admin/history" className="nav-link">History</Link>
+              <Link to="/admin" className="nav-link">Табло</Link>
+              <Link to="/admin/heads/create" className="nav-link">Нова глава</Link>
+              <Link to="/admin/users" className="nav-link">Потребители</Link>
+              <Link to="/admin/service-needs" className="nav-link">Услуги</Link>
+              <Link to="/admin/history" className="nav-link">История</Link>
             </>
           )}
           {isMechanic && (
             <>
-              <Link to="/mechanic" className="nav-link">Available Heads</Link>
-              <Link to="/mechanic/history" className="nav-link">My History</Link>
+              <Link to="/mechanic" className="nav-link">Налични глави</Link>
+              <Link to="/mechanic/history" className="nav-link">Моята история</Link>
             </>
           )}
         </div>
@@ -39,9 +40,9 @@ export default function Layout() {
             {user.firstName} {user.lastName}
             <span className="badge">{user.role}</span>
           </span>
-          <Link to="/change-password" className="nav-link">Password</Link>
+          <Link to="/change-password" className="nav-link">Парола</Link>
           <button onClick={handleLogout} className="btn btn-sm btn-outline">
-            Logout
+            Изход
           </button>
         </div>
       </nav>

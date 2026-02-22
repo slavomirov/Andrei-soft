@@ -12,7 +12,7 @@ public interface IHeadsService
     Task DeleteAsync(int id, string userId, string userDisplayName);
     Task<HeadResponseDTO> StartWorkAsync(int headId, string mechanicId, string mechanicDisplayName);
     Task<HeadResponseDTO> FinishAsync(int headId, string mechanicId, string mechanicDisplayName);
-    Task<HeadResponseDTO> AddServiceNeedAsync(int headId, string serviceNeed, string userId, string userDisplayName);
-    Task<HeadResponseDTO> RemoveServiceNeedAsync(int headId, string serviceNeed, string userId, string userDisplayName);
-    Task<HeadResponseDTO> CheckServiceNeedAsync(int headId, string serviceNeed, string userId, string userDisplayName);
+    Task<HeadResponseDTO> AddServiceNeedAsync(int headId, int serviceNeedId, string userId, string userDisplayName);
+    Task<HeadResponseDTO> RemoveServiceNeedAsync(int headId, int serviceNeedId, string userId, string userDisplayName);
+    Task<HeadResponseDTO> CheckServiceNeedAsync(int headId, int serviceNeedId, string userId, string userDisplayName);
 }

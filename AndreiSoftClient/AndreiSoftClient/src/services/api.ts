@@ -132,7 +132,7 @@ export async function apiCreateHead(dto: {
   ownerLastName: string;
   serviceName: string;
   servicePhoneNumber: string;
-  serviceNeeds: string[];
+  serviceNeeds: number[];
 }) {
   const res = await fetch(`${API_BASE}/heads`, {
     method: "POST",
@@ -151,7 +151,7 @@ export async function apiUpdateHead(id: number, dto: {
   ownerLastName: string;
   serviceName: string;
   servicePhoneNumber: string;
-  serviceNeeds: string[];
+  serviceNeeds: number[];
   status?: string;
 }) {
   const res = await fetch(`${API_BASE}/heads/${id}`, {
@@ -186,35 +186,66 @@ export async function apiFinishHead(id: number) {
   return handleResponse(res);
 }
 
-export async function apiAddServiceNeed(id: number, serviceNeed: string) {
+export async function apiAddServiceNeed(id: number, serviceNeedId: number) {
   const res = await fetch(`${API_BASE}/heads/${id}/add-service-need`, {
     method: "POST",
     headers: headers(),
-    body: JSON.stringify({ serviceNeed }),
+    body: JSON.stringify({ serviceNeedId }),
   });
   return handleResponse(res);
 }
 
-export async function apiRemoveServiceNeed(id: number, serviceNeed: string) {
+export async function apiRemoveServiceNeed(id: number, serviceNeedId: number) {
   const res = await fetch(`${API_BASE}/heads/${id}/remove-service-need`, {
     method: "POST",
     headers: headers(),
-    body: JSON.stringify({ serviceNeed }),
+    body: JSON.stringify({ serviceNeedId }),
   });
   return handleResponse(res);
 }
 
-export async function apiCheckServiceNeed(id: number, serviceNeed: string) {
+export async function apiCheckServiceNeed(id: number, serviceNeedId: number) {
   const res = await fetch(`${API_BASE}/heads/${id}/check-service-need`, {
     method: "POST",
     headers: headers(),
-    body: JSON.stringify({ serviceNeed }),
+    body: JSON.stringify({ serviceNeedId }),
   });
   return handleResponse(res);
 }
 
 export async function apiGetServiceNeeds() {
-  const res = await fetch(`${API_BASE}/heads/service-needs`, { headers: headers(false) });
+  const res = await fetch(`${API_BASE}/service-needs`, { headers: headers(false) });
+  return handleResponse(res);
+}
+
+export async function apiGetAllServiceNeeds() {
+  const res = await fetch(`${API_BASE}/service-needs/all`, { headers: headers(false) });
+  return handleResponse(res);
+}
+
+export async function apiCreateServiceNeed(dto: { name: string; price: number }) {
+  const res = await fetch(`${API_BASE}/service-needs`, {
+    method: "POST",
+    headers: headers(),
+    body: JSON.stringify(dto),
+  });
+  return handleResponse(res);
+}
+
+export async function apiUpdateServiceNeed(id: number, dto: { name: string; price: number; isActive: boolean }) {
+  const res = await fetch(`${API_BASE}/service-needs/${id}`, {
+    method: "PUT",
+    headers: headers(),
+    body: JSON.stringify(dto),
+  });
+  return handleResponse(res);
+}
+
+export async function apiDeleteServiceNeed(id: number) {
+  const res = await fetch(`${API_BASE}/service-needs/${id}`, {
+    method: "DELETE",
+    headers: headers(false),
+  });
   return handleResponse(res);
 }
 
