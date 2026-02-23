@@ -28,7 +28,7 @@ export default function AdminDashboard() {
     loadHeads();
   }, []);
 
-  const { connected } = useSignalR(
+  useSignalR(
     (h) => setHeads((prev) => [h, ...prev]),
     (h) => setHeads((prev) => prev.map((x) => (x.id === h.id ? h : x))),
     (id) => setHeads((prev) => prev.filter((x) => x.id !== id))
@@ -71,7 +71,6 @@ export default function AdminDashboard() {
       <div className="page-header">
         <h2>Всички глави</h2>
         <div className="header-actions">
-          <span className={`connection-dot ${connected ? "online" : "offline"}`} title={connected ? "На живо" : "Свързване..."} />
           <Link to="/admin/heads/create" className="btn btn-primary">+ Нова глава</Link>
         </div>
       </div>
@@ -133,11 +132,6 @@ export default function AdminDashboard() {
             )}
           </tbody>
         </table>
-      </div>
-
-      <div className="summary-bar">
-        <span>Общо: {filtered.length}</span>
-        <span>Обща стойност: {filtered.reduce((s, h) => s + h.price, 0).toFixed(2)} €</span>
       </div>
 
       <ConfirmModal

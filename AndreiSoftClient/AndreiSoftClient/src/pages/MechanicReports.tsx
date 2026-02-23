@@ -59,8 +59,7 @@ export default function MechanicReports() {
         <>
           <div className="report-summary-bar">
             <span>Завършени глави: <strong>{heads.length}</strong></span>
-            <span>Общ приход: <strong>{totalPrice.toFixed(2)} €</strong></span>
-            <span>Вашата заплата: <strong>{totalSalary.toFixed(2)} €</strong></span>
+            <span>За Вас: <strong>{totalSalary.toFixed(2)} €</strong></span>
           </div>
 
           <div className="table-wrapper">
@@ -74,7 +73,7 @@ export default function MechanicReports() {
                   <th>Собственик</th>
                   <th>Статус</th>
                   <th>Цена</th>
-                  <th>Вашата заплата</th>
+                  <th>За Вас</th>
                   <th>Завършена</th>
                 </tr>
               </thead>

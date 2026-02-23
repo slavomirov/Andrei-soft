@@ -74,19 +74,19 @@ export default function CreateHeadForm() {
           <div className="form-grid">
             <div className="form-group">
               <label>Марка</label>
-              <input value={form.make} onChange={handleChange("make")} required placeholder="напр. Toyota" />
+              <input value={form.make} onChange={handleChange("make")} placeholder="напр. Toyota" />
             </div>
             <div className="form-group">
               <label>Модел</label>
-              <input value={form.model} onChange={handleChange("model")} required placeholder="напр. 2JZ-GTE" />
+              <input value={form.model} onChange={handleChange("model")} placeholder="напр. 2JZ-GTE" />
             </div>
             <div className="form-group">
               <label>Година</label>
-              <input type="number" value={form.year} onChange={handleChange("year")} required min={1950} max={2030} />
+              <input type="number" value={form.year} onChange={handleChange("year")} min={1950} max={2030} />
             </div>
             <div className="form-group">
               <label>Част №</label>
-              <input value={form.partNumber} onChange={handleChange("partNumber")} required placeholder="напр. 11101-49686" />
+              <input value={form.partNumber} onChange={handleChange("partNumber")} placeholder="напр. 11101-49686" />
             </div>
           </div>
         </div>
@@ -96,11 +96,11 @@ export default function CreateHeadForm() {
           <div className="form-grid">
             <div className="form-group">
               <label>Име</label>
-              <input value={form.ownerFirstName} onChange={handleChange("ownerFirstName")} required />
+              <input value={form.ownerFirstName} onChange={handleChange("ownerFirstName")} />
             </div>
             <div className="form-group">
               <label>Фамилия</label>
-              <input value={form.ownerLastName} onChange={handleChange("ownerLastName")} required />
+              <input value={form.ownerLastName} onChange={handleChange("ownerLastName")} />
             </div>
           </div>
         </div>
@@ -110,11 +110,11 @@ export default function CreateHeadForm() {
           <div className="form-grid">
             <div className="form-group">
               <label>Име на сервиз</label>
-              <input value={form.serviceName} onChange={handleChange("serviceName")} required />
+              <input value={form.serviceName} onChange={handleChange("serviceName")} />
             </div>
             <div className="form-group">
               <label>Телефонен номер</label>
-              <input value={form.servicePhoneNumber} onChange={handleChange("servicePhoneNumber")} required placeholder="+359..." />
+              <input value={form.servicePhoneNumber} onChange={handleChange("servicePhoneNumber")} placeholder="+359..." />
             </div>
           </div>
         </div>

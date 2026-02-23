@@ -12,6 +12,7 @@ interface MechanicGroup {
   heads: Head[];
   totalPrice: number;
   mechanicSalary: number;
+  insurance: number;
 }
 
 export default function AdminReports() {
@@ -51,6 +52,7 @@ export default function AdminReports() {
         heads: [],
         totalPrice: 0,
         mechanicSalary: 0,
+        insurance: 0,
       };
       map.set(mid, g);
       groups.push(g);
@@ -59,10 +61,12 @@ export default function AdminReports() {
     g.heads.push(h);
     g.totalPrice += h.price;
     g.mechanicSalary += h.mechanicSalary;
+    g.insurance += h.insurance;
   }
 
   const grandTotalPrice = groups.reduce((s, g) => s + g.totalPrice, 0);
   const grandTotalSalary = groups.reduce((s, g) => s + g.mechanicSalary, 0);
+  const grandTotalInsurance = groups.reduce((s, g) => s + g.insurance, 0);
 
   return (
     <div>
@@ -94,6 +98,7 @@ export default function AdminReports() {
             <span>Общо глави: <strong>{heads.length}</strong></span>
             <span>Общ приход: <strong>{grandTotalPrice.toFixed(2)} €</strong></span>
             <span>Общо заплати: <strong>{grandTotalSalary.toFixed(2)} €</strong></span>
+            <span>Общо осигуровки: <strong>{grandTotalInsurance.toFixed(2)} €</strong></span>
           </div>
 
           {groups.map((g) => (
@@ -109,6 +114,7 @@ export default function AdminReports() {
                 <div className="report-mechanic-totals">
                   <span className="report-total">Приход: <strong>{g.totalPrice.toFixed(2)} €</strong></span>
                   <span className="report-salary">Заплата: <strong>{g.mechanicSalary.toFixed(2)} €</strong></span>
+                  <span className="report-insurance">Осигуровки: <strong>{g.insurance.toFixed(2)} €</strong></span>
                   <span className="expand-arrow">{expandedMechanic === g.mechanicId ? "▼" : "▶"}</span>
                 </div>
               </div>
@@ -126,6 +132,7 @@ export default function AdminReports() {
                         <th>Статус</th>
                         <th>Цена</th>
                         <th>Заплата</th>
+                        <th>Осигуровки</th>
                         <th>Завършена</th>
                       </tr>
                     </thead>
@@ -144,6 +151,7 @@ export default function AdminReports() {
                           <td><span className="badge badge-green">{translateStatus(h.status)}</span></td>
                           <td className="price">{h.price.toFixed(2)} €</td>
                           <td>{h.mechanicSalary.toFixed(2)} €</td>
+                          <td>{h.insurance.toFixed(2)} €</td>
                           <td>{h.completedDate ? new Date(h.completedDate).toLocaleDateString() : "—"}</td>
                         </tr>
                       ))}

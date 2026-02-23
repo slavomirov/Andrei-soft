@@ -23,7 +23,7 @@ public class HeadsService : IHeadsService
         return await _db.ServiceNeeds.ToDictionaryAsync(sn => sn.Id);
     }
 
-    private static List<int> ParseIds(string csv)
+    private static List<int> ParseIds(string? csv)
     {
         if (string.IsNullOrWhiteSpace(csv)) return new List<int>();
         return csv.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
@@ -58,14 +58,14 @@ public class HeadsService : IHeadsService
         return new HeadResponseDTO
         {
             Id = h.Id,
-            Make = h.Make,
-            Model = h.Model,
-            Year = h.Year,
-            PartNumber = h.PartNumber,
-            OwnerFirstName = h.OwnerFirstName,
-            OwnerLastName = h.OwnerLastName,
-            ServiceName = h.ServiceName,
-            ServicePhoneNumber = h.ServicePhoneNumber,
+            Make = h.Make ?? string.Empty,
+            Model = h.Model ?? string.Empty,
+            Year = h.Year ?? 0,
+            PartNumber = h.PartNumber ?? string.Empty,
+            OwnerFirstName = h.OwnerFirstName ?? string.Empty,
+            OwnerLastName = h.OwnerLastName ?? string.Empty,
+            ServiceName = h.ServiceName ?? string.Empty,
+            ServicePhoneNumber = h.ServicePhoneNumber ?? string.Empty,
             Status = h.Status.ToString(),
             CreateDate = h.CreateDate,
             CompletedDate = h.CompletedDate,
@@ -105,7 +105,7 @@ public class HeadsService : IHeadsService
     {
         var lookup = await GetNeedsLookupAsync();
         var heads = await _db.Heads
-            .Where(h => h.MechanicId == mechanicId && (h.Status == HeadStatus.WorkingOn || h.Status == HeadStatus.Completed))
+            .Where(h => h.MechanicId == mechanicId && (h.Status != HeadStatus.GivenToClient))
             .OrderByDescending(h => h.UpdatedAt)
             .ToListAsync();
 

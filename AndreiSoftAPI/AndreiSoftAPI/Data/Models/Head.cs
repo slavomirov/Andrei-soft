@@ -5,18 +5,18 @@ public class Head
     public int Id { get; set; }
 
     // Vehicle / part info
-    public string Make { get; set; } = string.Empty;
-    public string Model { get; set; } = string.Empty;
-    public int Year { get; set; }
-    public string PartNumber { get; set; } = string.Empty;
+    public string? Make { get; set; }
+    public string? Model { get; set; }
+    public int? Year { get; set; }
+    public string? PartNumber { get; set; }
 
     // Owner info
-    public string OwnerFirstName { get; set; } = string.Empty;
-    public string OwnerLastName { get; set; } = string.Empty;
+    public string? OwnerFirstName { get; set; }
+    public string? OwnerLastName { get; set; }
 
     // Service contact
-    public string ServiceName { get; set; } = string.Empty;
-    public string ServicePhoneNumber { get; set; } = string.Empty;
+    public string? ServiceName { get; set; }
+    public string? ServicePhoneNumber { get; set; }
 
     // Status & workflow
     public HeadStatus Status { get; set; } = HeadStatus.Added;
@@ -30,10 +30,10 @@ public class Head
     public string? MechanicDisplayName { get; set; }
 
     // Service needs (CSV of ServiceNeedType enum names)
-    public string ServiceNeeds { get; set; } = string.Empty;
+    public string? ServiceNeeds { get; set; }
 
     // Checked / completed service needs by mechanic (CSV)
-    public string CheckedServiceNeeds { get; set; } = string.Empty;
+    public string? CheckedServiceNeeds { get; set; }
 
     // Price – auto-calculated from service needs
     public decimal Price { get; set; }

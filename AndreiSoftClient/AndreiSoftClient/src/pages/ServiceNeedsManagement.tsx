@@ -125,7 +125,6 @@ export default function ServiceNeedsManagement() {
               <input
                 value={form.name}
                 onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-                required
                 placeholder="напр. Обработка на седла"
               />
             </div>
@@ -137,7 +136,6 @@ export default function ServiceNeedsManagement() {
                 min="0"
                 value={form.price}
                 onChange={(e) => setForm((f) => ({ ...f, price: parseFloat(e.target.value) || 0 }))}
-                required
               />
             </div>
           </div>

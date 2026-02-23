@@ -33,8 +33,6 @@ export default function AdminHistoryPage() {
       e.action.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const formatDate = (d: string) => new Date(d).toLocaleString();
-
   const actionBadgeClass = (action: string) => {
     switch (action) {
       case "Created": return "badge badge-blue";
@@ -48,9 +46,37 @@ export default function AdminHistoryPage() {
     }
   };
 
+  const statusBadgeClass = (status: string) => {
+    switch (status) {
+      case "Added": return "badge badge-blue";
+      case "WorkingOn": return "badge badge-orange";
+      case "Completed": return "badge badge-green";
+      case "GivenToClient": return "badge badge-gray";
+      default: return "badge";
+    }
+  };
+
+  const formatDateParts = (d: string) => {
+    const date = new Date(d);
+    return {
+      day: date.toLocaleDateString("bg-BG", { day: "2-digit", month: "2-digit", year: "numeric" }),
+      time: date.toLocaleTimeString("bg-BG", { hour: "2-digit", minute: "2-digit" }),
+    };
+  };
+
   const renderTable = (items: HistoryEntry[]) => (
     <div className="table-wrapper">
-      <table className="data-table">
+      <table className="data-table history-data-table">
+        <colgroup>
+          <col style={{ width: "12%" }} />
+          <col style={{ width: "16%" }} />
+          <col style={{ width: "18%" }} />
+          <col style={{ width: "23%" }} />
+          <col style={{ width: "13%" }} />
+          <col style={{ width: "11%" }} />
+          <col style={{ width: "18%" }} />
+          <col style={{ width: "10%" }} />
+        </colgroup>
         <thead>
           <tr>
             <th>Дата</th>
@@ -69,20 +95,27 @@ export default function AdminHistoryPage() {
               <td colSpan={8} className="empty-row">Няма записи в историята</td>
             </tr>
           ) : (
-            items.map((e) => (
-              <tr key={e.id}>
-                <td style={{ whiteSpace: "nowrap" }}>{formatDate(e.timestamp)}</td>
-                <td>
-                  <strong>#{e.headId}</strong> {e.headSummary}
-                </td>
-                <td><span className={actionBadgeClass(e.action)}>{translateAction(e.action)}</span></td>
-                <td className="history-description">{e.description}</td>
-                <td>{e.changedByDisplayName || "—"}</td>
-                <td>{e.mechanicDisplayName || "—"}</td>
-                <td><span className="badge">{translateStatus(e.status)}</span></td>
-                <td className="price">{e.price.toFixed(2)} €</td>
-              </tr>
-            ))
+            items.map((e) => {
+              const { day, time } = formatDateParts(e.timestamp);
+              return (
+                <tr key={e.id}>
+                  <td className="history-date">
+                    <div className="history-date-day">{day}</div>
+                    <div className="history-date-time">{time}</div>
+                  </td>
+                  <td>
+                    <span className="history-head-id">#{e.headId}</span>
+                    <span className="history-head-summary">{e.headSummary}</span>
+                  </td>
+                  <td><span className={actionBadgeClass(e.action)}>{translateAction(e.action)}</span></td>
+                  <td><div className="history-description">{e.description}</div></td>
+                  <td>{e.changedByDisplayName ? <span className="history-name">{e.changedByDisplayName}</span> : <span className="history-name-empty">—</span>}</td>
+                  <td>{e.mechanicDisplayName ? <span className="history-name">{e.mechanicDisplayName}</span> : <span className="history-name-empty">—</span>}</td>
+                  <td><span className={statusBadgeClass(e.status)}>{translateStatus(e.status)}</span></td>
+                  <td className="history-price">{e.price.toFixed(2)} €</td>
+                </tr>
+              );
+            })
           )}
         </tbody>
       </table>

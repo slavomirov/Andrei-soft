@@ -373,9 +373,10 @@ select:focus {
 }
 
 .data-table td {
-  padding: 0.65rem 1rem;
+  padding: 0.75rem 1rem;
   border-bottom: 1px solid var(--border);
   vertical-align: middle;
+  white-space: nowrap;
 }
 
 .data-table tbody tr:hover {
@@ -390,6 +391,7 @@ select:focus {
   display: flex;
   gap: 0.35rem;
   flex-wrap: nowrap;
+  align-items: center;
 }
 
 .empty-row {
@@ -526,23 +528,6 @@ code {
   border-radius: var(--radius);
   text-align: right;
   font-size: 1.1rem;
-}
-
-/* ── Connection dot ──────────────────────────────────────────── */
-.connection-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.connection-dot.online {
-  background: var(--success);
-  box-shadow: 0 0 6px rgba(22, 163, 74, 0.5);
-}
-
-.connection-dot.offline {
-  background: #94a3b8;
 }
 
 /* ── Page Loader ─────────────────────────────────────────────── */
@@ -742,17 +727,19 @@ code {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem 1rem;
-  background: var(--bg);
+  padding: 0.85rem 1.25rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
   border: 1px solid var(--border);
   border-bottom: none;
   border-radius: var(--radius) var(--radius) 0 0;
+  border-left: 3px solid var(--primary);
 }
 
 .history-group-header h3 {
   font-size: 1rem;
   font-weight: 600;
   margin: 0;
+  color: var(--text);
 }
 
 .history-group .table-wrapper {
@@ -760,11 +747,105 @@ code {
   border-top-right-radius: 0;
 }
 
-.history-description {
-  max-width: 350px;
-  font-size: 0.82rem;
+.history-data-table {
+  table-layout: fixed;
+}
+
+.history-data-table th {
+  padding: 0.65rem 0.85rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+}
+
+.history-data-table td {
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  overflow: hidden;
+  padding: 0.6rem 0.85rem;
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.history-data-table tbody tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+.history-data-table tbody tr:hover {
+  background: #eef2ff;
+}
+
+.history-data-table tbody tr {
+  transition: background 0.15s ease;
+}
+
+/* Date cell */
+.history-date {
+  font-variant-numeric: tabular-nums;
+}
+
+.history-date-day {
+  font-weight: 600;
+  color: var(--text);
+  font-size: 0.84rem;
+}
+
+.history-date-time {
+  font-size: 0.75rem;
   color: var(--text-muted);
-  line-height: 1.4;
+  margin-top: 1px;
+}
+
+/* Head ID pill */
+.history-head-id {
+  display: inline-block;
+  background: #eef2ff;
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 0.1rem 0.45rem;
+  border-radius: 4px;
+  margin-right: 0.35rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.history-head-summary {
+  color: var(--text);
+  font-weight: 500;
+  font-size: 0.83rem;
+}
+
+/* Description */
+.history-description {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  max-height: 4.35em;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+/* Name cells */
+.history-name {
+  font-weight: 500;
+  font-size: 0.83rem;
+}
+
+.history-name-empty {
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 0.8rem;
+}
+
+/* Price cell */
+.history-price {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--success);
+  text-align: right;
+  font-size: 0.85rem;
 }
 
 /* ── Responsive ──────────────────────────────────────────────── */

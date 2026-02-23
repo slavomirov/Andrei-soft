@@ -91,19 +91,19 @@ export default function EditHeadForm() {
           <div className="form-grid">
             <div className="form-group">
               <label>Марка</label>
-              <input value={form.make} onChange={handleChange("make")} required />
+              <input value={form.make} onChange={handleChange("make")} />
             </div>
             <div className="form-group">
               <label>Модел</label>
-              <input value={form.model} onChange={handleChange("model")} required />
+              <input value={form.model} onChange={handleChange("model")} />
             </div>
             <div className="form-group">
               <label>Година</label>
-              <input type="number" value={form.year} onChange={handleChange("year")} required />
+              <input type="number" value={form.year} onChange={handleChange("year")} />
             </div>
             <div className="form-group">
               <label>Част №</label>
-              <input value={form.partNumber} onChange={handleChange("partNumber")} required />
+              <input value={form.partNumber} onChange={handleChange("partNumber")} />
             </div>
           </div>
         </div>
@@ -113,11 +113,11 @@ export default function EditHeadForm() {
           <div className="form-grid">
             <div className="form-group">
               <label>Име</label>
-              <input value={form.ownerFirstName} onChange={handleChange("ownerFirstName")} required />
+              <input value={form.ownerFirstName} onChange={handleChange("ownerFirstName")} />
             </div>
             <div className="form-group">
               <label>Фамилия</label>
-              <input value={form.ownerLastName} onChange={handleChange("ownerLastName")} required />
+              <input value={form.ownerLastName} onChange={handleChange("ownerLastName")} />
             </div>
           </div>
         </div>
@@ -127,11 +127,11 @@ export default function EditHeadForm() {
           <div className="form-grid">
             <div className="form-group">
               <label>Име на сервиз</label>
-              <input value={form.serviceName} onChange={handleChange("serviceName")} required />
+              <input value={form.serviceName} onChange={handleChange("serviceName")} />
             </div>
             <div className="form-group">
               <label>Телефонен номер</label>
-              <input value={form.servicePhoneNumber} onChange={handleChange("servicePhoneNumber")} required />
+              <input value={form.servicePhoneNumber} onChange={handleChange("servicePhoneNumber")} />
             </div>
           </div>
         </div>

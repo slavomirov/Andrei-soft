@@ -18,7 +18,7 @@ export default function MechanicMyHeads() {
 
   useEffect(() => { loadHeads(); }, []);
 
-  const { connected } = useSignalR(
+  useSignalR(
     undefined,
     (h) => {
       setHeads((prev) => {
@@ -50,7 +50,6 @@ export default function MechanicMyHeads() {
     <div>
       <div className="page-header">
         <h2>Моите глави</h2>
-        <span className={`connection-dot ${connected ? "online" : "offline"}`} title={connected ? "На живо" : "Свързване..."} />
       </div>
 
       {heads.length === 0 ? (

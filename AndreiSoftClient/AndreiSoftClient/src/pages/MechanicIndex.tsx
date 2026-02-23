@@ -22,7 +22,7 @@ export default function MechanicIndex() {
 
   useEffect(() => { loadHeads(); }, []);
 
-  const { connected } = useSignalR(
+  useSignalR(
     (h) => {
       if (h.status === "Added" && !h.mechanicId) {
         setHeads((prev) => {
@@ -65,7 +65,6 @@ export default function MechanicIndex() {
     <div>
       <div className="page-header">
         <h2>Налични глави</h2>
-        <span className={`connection-dot ${connected ? "online" : "offline"}`} title={connected ? "На живо" : "Свързване..."} />
       </div>
 
       {heads.length === 0 ? (

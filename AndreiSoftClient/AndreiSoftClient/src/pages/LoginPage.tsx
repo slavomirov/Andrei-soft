@@ -42,7 +42,6 @@ export default function LoginPage() {
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              required
               autoFocus
               placeholder="Въведете потребителско име"
             />
@@ -54,7 +53,6 @@ export default function LoginPage() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required
               placeholder="Въведете парола"
             />
           </div>

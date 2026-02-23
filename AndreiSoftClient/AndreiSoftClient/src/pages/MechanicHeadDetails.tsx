@@ -35,6 +35,7 @@ export default function MechanicHeadDetails() {
 
   if (!head) return <div className="page-loader">Зареждане...</div>;
 
+  const readOnly = head.status === "Completed" || head.status === "GivenToClient";
   const activeNeedIds = head.serviceNeeds.map((n) => n.id);
   const notSelectedNeeds = catalog.filter((c) => !activeNeedIds.includes(c.id));
   const allActiveChecked = head.serviceNeeds.length > 0 &&
@@ -104,45 +105,54 @@ export default function MechanicHeadDetails() {
             <dt>Телефон</dt><dd>{head.servicePhoneNumber}</dd>
           </dl>
         </div>
-        <div className="detail-card">
-          <h3>Финанси</h3>
-          <dl>
-            <dt>Цена</dt><dd className="price">{head.price.toFixed(2)} €</dd>
-            <dt>Вашата заплата (25%)</dt><dd>{head.mechanicSalary.toFixed(2)} €</dd>
-            <dt>Застраховка (5%)</dt><dd>{head.insurance.toFixed(2)} €</dd>
-          </dl>
-        </div>
+        {readOnly && (
+          <div className="detail-card">
+            <h3>Финанси</h3>
+            <dl>
+              <dt>Цена</dt><dd className="price">{head.price.toFixed(2)} €</dd>
+              <dt>Ваш дял</dt><dd>{head.mechanicSalary.toFixed(2)} €</dd>
+            </dl>
+          </div>
+        )}
       </div>
 
       {/* Active service needs */}
       <div className="detail-card" style={{ marginTop: "1.5rem" }}>
         <h3>Активни услуги</h3>
         {head.serviceNeeds.length === 0 ? (
-          <p className="text-muted">Няма услуги. Добавете от по-долу.</p>
+          <p className="text-muted">{readOnly ? "Няма услуги." : "Няма услуги. Добавете от по-долу."}</p>
         ) : (
           <div className="mechanic-needs-list">
             {head.serviceNeeds.map((n) => {
               const isChecked = head.checkedServiceNeeds.includes(n.id);
               return (
                 <div key={n.id} className={`mechanic-need-item ${isChecked ? "done" : ""}`}>
-                  <button
-                    className={`check-btn ${isChecked ? "checked" : ""}`}
-                    onClick={() => handleCheck(n.id)}
-                    disabled={busy === n.id}
-                    title={isChecked ? "Отмаркирай" : "Маркирай като завършено"}
-                  >
-                    {isChecked ? "✅" : "⬜"}
-                  </button>
+                  {readOnly ? (
+                    <span className={`check-btn ${isChecked ? "checked" : ""}`}>
+                      {isChecked ? "✅" : "⬜"}
+                    </span>
+                  ) : (
+                    <button
+                      className={`check-btn ${isChecked ? "checked" : ""}`}
+                      onClick={() => handleCheck(n.id)}
+                      disabled={busy === n.id}
+                      title={isChecked ? "Отмаркирай" : "Маркирай като завършено"}
+                    >
+                      {isChecked ? "✅" : "⬜"}
+                    </button>
+                  )}
                   <span className="need-label">{n.name}</span>
                   <span className="need-price">{n.price.toFixed(2)} €</span>
-                  <button
-                    className="btn btn-sm btn-danger"
-                    onClick={() => handleRemove(n.id)}
-                    disabled={busy === n.id}
-                    title="Премахни услуга"
-                  >
-                    ✕
-                  </button>
+                  {!readOnly && (
+                    <button
+                      className="btn btn-sm btn-danger"
+                      onClick={() => handleRemove(n.id)}
+                      disabled={busy === n.id}
+                      title="Премахни услуга"
+                    >
+                      ✕
+                    </button>
+                  )}
                 </div>
               );
             })}
@@ -151,7 +161,7 @@ export default function MechanicHeadDetails() {
       </div>
 
       {/* Available service needs (not selected) */}
-      {notSelectedNeeds.length > 0 && (
+      {!readOnly && notSelectedNeeds.length > 0 && (
         <div className="detail-card" style={{ marginTop: "1rem" }}>
           <h3>Налични услуги</h3>
           <div className="mechanic-needs-list">
@@ -174,7 +184,7 @@ export default function MechanicHeadDetails() {
       )}
 
       {/* Finish button */}
-      {allActiveChecked && head.status === "WorkingOn" && (
+      {!readOnly && allActiveChecked && head.status === "WorkingOn" && (
         <div className="finish-section">
           <button className="btn btn-lg btn-success" onClick={handleFinish}>
             ✓ Завърши глава

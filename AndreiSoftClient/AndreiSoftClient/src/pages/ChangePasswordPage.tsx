@@ -32,15 +32,15 @@ export default function ChangePasswordPage() {
       <form onSubmit={handleSubmit} className="form-card" style={{ maxWidth: 400 }}>
         <div className="form-group">
           <label>Текуща парола</label>
-          <input type="password" value={form.currentPassword} onChange={(e) => setForm({ ...form, currentPassword: e.target.value })} required />
+          <input type="password" value={form.currentPassword} onChange={(e) => setForm({ ...form, currentPassword: e.target.value })} />
         </div>
         <div className="form-group">
           <label>Нова парола</label>
-          <input type="password" value={form.newPassword} onChange={(e) => setForm({ ...form, newPassword: e.target.value })} required />
+          <input type="password" value={form.newPassword} onChange={(e) => setForm({ ...form, newPassword: e.target.value })} />
         </div>
         <div className="form-group">
           <label>Потвърди нова парола</label>
-          <input type="password" value={form.confirmNewPassword} onChange={(e) => setForm({ ...form, confirmNewPassword: e.target.value })} required />
+          <input type="password" value={form.confirmNewPassword} onChange={(e) => setForm({ ...form, confirmNewPassword: e.target.value })} />
         </div>
         {error && <div className="alert alert-error">{error}</div>}
         {success && <div className="alert alert-success">Паролата е сменена! Пренасочване...</div>}

@@ -76,7 +76,7 @@ export default function AdminHeadDetails() {
           <dl>
             <dt>Цена</dt><dd className="price">{head.price.toFixed(2)} €</dd>
             <dt>Заплата на механик (25%)</dt><dd>{head.mechanicSalary.toFixed(2)} €</dd>
-            <dt>Застраховка (5%)</dt><dd>{head.insurance.toFixed(2)} €</dd>
+            <dt>Осигуровки (5%)</dt><dd>{head.insurance.toFixed(2)} €</dd>
           </dl>
         </div>
       </div>

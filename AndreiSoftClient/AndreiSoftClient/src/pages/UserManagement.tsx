@@ -89,23 +89,23 @@ export default function UserManagement() {
           <div className="form-grid">
             <div className="form-group">
               <label>Потребителско име</label>
-              <input value={createForm.username} onChange={(e) => setCreateForm({ ...createForm, username: e.target.value })} required />
+              <input value={createForm.username} onChange={(e) => setCreateForm({ ...createForm, username: e.target.value })} />
             </div>
             <div className="form-group">
               <label>Име</label>
-              <input value={createForm.firstName} onChange={(e) => setCreateForm({ ...createForm, firstName: e.target.value })} required />
+              <input value={createForm.firstName} onChange={(e) => setCreateForm({ ...createForm, firstName: e.target.value })} />
             </div>
             <div className="form-group">
               <label>Фамилия</label>
-              <input value={createForm.lastName} onChange={(e) => setCreateForm({ ...createForm, lastName: e.target.value })} required />
+              <input value={createForm.lastName} onChange={(e) => setCreateForm({ ...createForm, lastName: e.target.value })} />
             </div>
             <div className="form-group">
               <label>Парола</label>
-              <input type="password" value={createForm.password} onChange={(e) => setCreateForm({ ...createForm, password: e.target.value })} required />
+              <input type="password" value={createForm.password} onChange={(e) => setCreateForm({ ...createForm, password: e.target.value })} />
             </div>
             <div className="form-group">
               <label>Потвърди парола</label>
-              <input type="password" value={createForm.confirmPassword} onChange={(e) => setCreateForm({ ...createForm, confirmPassword: e.target.value })} required />
+              <input type="password" value={createForm.confirmPassword} onChange={(e) => setCreateForm({ ...createForm, confirmPassword: e.target.value })} />
             </div>
             <div className="form-group">
               <label>Роля</label>

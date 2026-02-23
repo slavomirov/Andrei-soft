@@ -15,6 +15,7 @@ const actionMap: Record<string, string> = {
   ServiceNeedAdded: "Добавена услуга",
   ServiceNeedRemoved: "Премахната услуга",
   ServiceNeedChecked: "Отбелязана услуга",
+  GivenToClient: "Предадена на клиент",
 };
 
 export function translateStatus(status: string): string {

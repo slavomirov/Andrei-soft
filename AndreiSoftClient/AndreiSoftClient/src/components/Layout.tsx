@@ -43,7 +43,7 @@ export default function Layout() {
             {user.firstName} {user.lastName}
             <span className="badge">{user.role}</span>
           </span>
-          <Link to="/change-password" className="nav-link">Парола</Link>
+          <Link to="/change-password" className="nav-link">Смяна на парола</Link>
           <button onClick={handleLogout} className="btn btn-sm btn-outline">
             Изход
           </button>
