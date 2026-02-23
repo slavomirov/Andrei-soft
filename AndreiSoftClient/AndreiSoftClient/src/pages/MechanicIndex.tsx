@@ -32,11 +32,16 @@ export default function MechanicIndex() {
       }
     },
     (h) => {
-      // If head is no longer available, remove it
-      if (h.status !== "Added" || h.mechanicId) {
-        setHeads((prev) => prev.filter((x) => x.id !== h.id));
+      if (h.status === "Added" && !h.mechanicId) {
+        // Head became available — add or update it
+        setHeads((prev) => {
+          const exists = prev.find((x) => x.id === h.id);
+          if (exists) return prev.map((x) => (x.id === h.id ? h : x));
+          return [h, ...prev];
+        });
       } else {
-        setHeads((prev) => prev.map((x) => (x.id === h.id ? h : x)));
+        // Head is no longer available — remove it
+        setHeads((prev) => prev.filter((x) => x.id !== h.id));
       }
     },
     (id) => setHeads((prev) => prev.filter((x) => x.id !== id))

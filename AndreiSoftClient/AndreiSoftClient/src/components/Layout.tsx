@@ -26,12 +26,15 @@ export default function Layout() {
               <Link to="/admin/users" className="nav-link">Потребители</Link>
               <Link to="/admin/service-needs" className="nav-link">Услуги</Link>
               <Link to="/admin/history" className="nav-link">История</Link>
+              <Link to="/admin/reports" className="nav-link">Отчети</Link>
             </>
           )}
           {isMechanic && (
             <>
               <Link to="/mechanic" className="nav-link">Налични глави</Link>
+              <Link to="/mechanic/my-heads" className="nav-link">Моите глави</Link>
               <Link to="/mechanic/history" className="nav-link">Моята история</Link>
+              <Link to="/mechanic/reports" className="nav-link">Мой отчет</Link>
             </>
           )}
         </div>

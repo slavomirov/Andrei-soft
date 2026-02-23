@@ -101,6 +101,41 @@ public class HeadsService : IHeadsService
         return heads.Select(h => MapToDTO(h, lookup)).ToList();
     }
 
+    public async Task<List<HeadResponseDTO>> GetByMechanicAsync(string mechanicId)
+    {
+        var lookup = await GetNeedsLookupAsync();
+        var heads = await _db.Heads
+            .Where(h => h.MechanicId == mechanicId && (h.Status == HeadStatus.WorkingOn || h.Status == HeadStatus.Completed))
+            .OrderByDescending(h => h.UpdatedAt)
+            .ToListAsync();
+
+        return heads.Select(h => MapToDTO(h, lookup)).ToList();
+    }
+
+    public async Task<List<HeadResponseDTO>> GetReportAsync(string period, string? mechanicId = null)
+    {
+        var now = DateTime.UtcNow;
+        var from = period switch
+        {
+            "week" => now.AddDays(-7),
+            "month" => now.AddMonths(-1),
+            "year" => now.AddYears(-1),
+            _ => now.AddDays(-7),
+        };
+
+        var query = _db.Heads
+            .Where(h => (h.Status == HeadStatus.Completed || h.Status == HeadStatus.GivenToClient)
+                && h.CompletedDate != null && h.CompletedDate >= from);
+
+        if (mechanicId != null)
+            query = query.Where(h => h.MechanicId == mechanicId);
+
+        var lookup = await GetNeedsLookupAsync();
+        var heads = await query.OrderByDescending(h => h.CompletedDate).ToListAsync();
+
+        return heads.Select(h => MapToDTO(h, lookup)).ToList();
+    }
+
     public async Task<HeadResponseDTO?> GetByIdAsync(int id)
     {
         var head = await _db.Heads.FindAsync(id);
@@ -166,6 +201,26 @@ public class HeadsService : IHeadsService
         if (!string.IsNullOrEmpty(dto.Status) && Enum.TryParse<HeadStatus>(dto.Status, out var status))
             head.Status = status;
 
+        // Allow admin to reassign mechanic
+        if (dto.MechanicId != null)
+        {
+            if (dto.MechanicId == "")
+            {
+                // Unassign mechanic
+                head.MechanicId = null;
+                head.MechanicDisplayName = null;
+            }
+            else
+            {
+                var mechanic = await _db.Users.FindAsync(dto.MechanicId);
+                if (mechanic != null)
+                {
+                    head.MechanicId = mechanic.Id;
+                    head.MechanicDisplayName = $"{mechanic.FirstName} {mechanic.LastName}".Trim();
+                }
+            }
+        }
+
         await _db.SaveChangesAsync();
 
         await _logger.LogAsync(head, "Updated",
@@ -230,6 +285,28 @@ public class HeadsService : IHeadsService
         await _logger.LogAsync(head, "Finished",
             $"Mechanic {mechanicDisplayName} finished work on {head.Make} {head.Model} ({head.Year})",
             mechanicId, mechanicDisplayName);
+
+        var lookup = await GetNeedsLookupAsync();
+        return MapToDTO(head, lookup);
+    }
+
+    // ── Give to Client ──────────────────────────────────────────
+    public async Task<HeadResponseDTO> GiveToClientAsync(int headId, string userId, string userDisplayName)
+    {
+        var head = await _db.Heads.FindAsync(headId)
+            ?? throw new Exception("Head not found");
+
+        if (head.Status != HeadStatus.Completed)
+            throw new Exception("Head must be completed before giving to client");
+
+        head.Status = HeadStatus.GivenToClient;
+        head.UpdatedAt = DateTime.UtcNow;
+
+        await _db.SaveChangesAsync();
+
+        await _logger.LogAsync(head, "GivenToClient",
+            $"Head {head.Make} {head.Model} ({head.Year}) given to client by {userDisplayName}",
+            userId, userDisplayName);
 
         var lookup = await GetNeedsLookupAsync();
         return MapToDTO(head, lookup);

@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import { apiGetHead } from "../services/api";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { apiGetHead, apiGiveToClient } from "../services/api";
 import type { Head } from "../types/Head";
 import { useSignalR } from "../hooks/useSignalR";
 import { translateStatus } from "../utils/translations";
+import { ConfirmModal, AlertModal } from "../components/Modal";
 
 export default function AdminHeadDetails() {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const [head, setHead] = useState<Head | null>(null);
+  const [showGiveConfirm, setShowGiveConfirm] = useState(false);
+  const [alertMsg, setAlertMsg] = useState("");
 
   useEffect(() => {
     apiGetHead(Number(id)).then(setHead).catch(console.error);
@@ -91,7 +95,35 @@ export default function AdminHeadDetails() {
 
       <div className="form-actions" style={{ marginTop: "1rem" }}>
         <Link to={`/admin/heads/${head.id}/edit`} className="btn btn-primary">Редактирай глава</Link>
+        {head.status === "Completed" && (
+          <button className="btn btn-success" onClick={() => setShowGiveConfirm(true)}>
+            ✔ Предай на клиент
+          </button>
+        )}
       </div>
+
+      <ConfirmModal
+        open={showGiveConfirm}
+        title="Предаване на клиент"
+        message="Сигурни ли сте, че искате да маркирате тази глава като предадена на клиент?"
+        onConfirm={async () => {
+          setShowGiveConfirm(false);
+          try {
+            const updated = await apiGiveToClient(head.id);
+            setHead(updated);
+          } catch (err) {
+            setAlertMsg(err instanceof Error ? err.message : "Грешка");
+          }
+        }}
+        onCancel={() => setShowGiveConfirm(false)}
+      />
+
+      <AlertModal
+        open={!!alertMsg}
+        title="Грешка"
+        message={alertMsg}
+        onClose={() => setAlertMsg("")}
+      />
     </div>
   );
 }

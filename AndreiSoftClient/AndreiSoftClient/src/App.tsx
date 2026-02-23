@@ -9,9 +9,12 @@ import AdminHeadDetails from "./pages/AdminHeadDetails";
 import UserManagement from "./pages/UserManagement";
 import ServiceNeedsManagement from "./pages/ServiceNeedsManagement";
 import AdminHistoryPage from "./pages/AdminHistoryPage";
+import AdminReports from "./pages/AdminReports";
 import MechanicIndex from "./pages/MechanicIndex";
+import MechanicMyHeads from "./pages/MechanicMyHeads";
 import MechanicHeadDetails from "./pages/MechanicHeadDetails";
 import MechanicHistoryPage from "./pages/MechanicHistoryPage";
+import MechanicReports from "./pages/MechanicReports";
 import ChangePasswordPage from "./pages/ChangePasswordPage";
 import "./App.css";
 
@@ -38,11 +41,14 @@ function AppRoutes() {
         <Route path="/admin/users" element={<ProtectedRoute role="Administrator"><UserManagement /></ProtectedRoute>} />
         <Route path="/admin/service-needs" element={<ProtectedRoute role="Administrator"><ServiceNeedsManagement /></ProtectedRoute>} />
         <Route path="/admin/history" element={<ProtectedRoute role="Administrator"><AdminHistoryPage /></ProtectedRoute>} />
+        <Route path="/admin/reports" element={<ProtectedRoute role="Administrator"><AdminReports /></ProtectedRoute>} />
 
         {/* Mechanic routes */}
         <Route path="/mechanic" element={<ProtectedRoute role="Mechanic"><MechanicIndex /></ProtectedRoute>} />
+        <Route path="/mechanic/my-heads" element={<ProtectedRoute role="Mechanic"><MechanicMyHeads /></ProtectedRoute>} />
         <Route path="/mechanic/heads/:id" element={<ProtectedRoute role="Mechanic"><MechanicHeadDetails /></ProtectedRoute>} />
         <Route path="/mechanic/history" element={<ProtectedRoute role="Mechanic"><MechanicHistoryPage /></ProtectedRoute>} />
+        <Route path="/mechanic/reports" element={<ProtectedRoute role="Mechanic"><MechanicReports /></ProtectedRoute>} />
 
         {/* Shared */}
         <Route path="/change-password" element={<ProtectedRoute><ChangePasswordPage /></ProtectedRoute>} />

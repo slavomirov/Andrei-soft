@@ -1,7 +1,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { apiGetHead, apiUpdateHead, apiGetServiceNeeds } from "../services/api";
-import type { Head, ServiceNeedInfo } from "../types/Head";
+import { apiGetHead, apiUpdateHead, apiGetServiceNeeds, apiGetUsers } from "../services/api";
+import type { Head, ServiceNeedInfo, UserInfo } from "../types/Head";
 
 export default function EditHeadForm() {
   const { id } = useParams<{ id: string }>();
@@ -11,26 +11,31 @@ export default function EditHeadForm() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [head, setHead] = useState<Head | null>(null);
+  const [mechanics, setMechanics] = useState<UserInfo[]>([]);
 
   const [form, setForm] = useState({
     make: "", model: "", year: 2024, partNumber: "",
     ownerFirstName: "", ownerLastName: "",
     serviceName: "", servicePhoneNumber: "",
     status: "Added",
+    mechanicId: "" as string | null,
   });
 
   useEffect(() => {
     Promise.all([
       apiGetHead(Number(id)),
       apiGetServiceNeeds(),
-    ]).then(([h, needs]) => {
+      apiGetUsers(),
+    ]).then(([h, needs, users]) => {
       setHead(h);
       setCatalog(needs);
+      setMechanics(users.filter((u: UserInfo) => u.role === "Mechanic" && u.isActive));
       setForm({
         make: h.make, model: h.model, year: h.year, partNumber: h.partNumber,
         ownerFirstName: h.ownerFirstName, ownerLastName: h.ownerLastName,
         serviceName: h.serviceName, servicePhoneNumber: h.servicePhoneNumber,
         status: h.status,
+        mechanicId: h.mechanicId || "",
       });
       setSelectedNeeds(new Set(h.serviceNeeds.map((sn: ServiceNeedInfo) => sn.id)));
     }).catch(console.error);
@@ -57,6 +62,7 @@ export default function EditHeadForm() {
         ...form,
         serviceNeeds: Array.from(selectedNeeds),
         status: form.status,
+        mechanicId: head?.mechanicId ? form.mechanicId : undefined,
       });
       navigate("/admin");
     } catch (err: unknown) {
@@ -139,6 +145,23 @@ export default function EditHeadForm() {
             <option value="GivenToClient">Предадена на клиент</option>
           </select>
         </div>
+
+        {head.mechanicId && (
+          <div className="form-section">
+            <h3>Назначен механик</h3>
+            <select
+              value={form.mechanicId || ""}
+              onChange={(e) => setForm((prev) => ({ ...prev, mechanicId: e.target.value }))}
+            >
+              <option value="">— Без механик —</option>
+              {mechanics.map((m) => (
+                <option key={m.id} value={m.id}>
+                  {m.firstName} {m.lastName} ({m.userName})
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
 
         <div className="form-section">
           <h3>Необходими услуги</h3>

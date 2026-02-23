@@ -84,6 +84,27 @@ public class HeadsController : ControllerBase
         return Ok(await _service.GetAvailableAsync());
     }
 
+    [HttpGet("my-heads")]
+    [Authorize(Roles = "Mechanic")]
+    public async Task<IActionResult> GetMyHeads()
+    {
+        return Ok(await _service.GetByMechanicAsync(GetUserId()));
+    }
+
+    [HttpGet("reports")]
+    [Authorize(Roles = "Administrator")]
+    public async Task<IActionResult> GetReport([FromQuery] string period = "week")
+    {
+        return Ok(await _service.GetReportAsync(period));
+    }
+
+    [HttpGet("reports/my")]
+    [Authorize(Roles = "Mechanic")]
+    public async Task<IActionResult> GetMyReport([FromQuery] string period = "week")
+    {
+        return Ok(await _service.GetReportAsync(period, GetUserId()));
+    }
+
     [HttpPost("{id}/start")]
     [Authorize(Roles = "Mechanic")]
     public async Task<IActionResult> Start(int id)
@@ -105,6 +126,19 @@ public class HeadsController : ControllerBase
         var userId = GetUserId();
         var displayName = GetDisplayName();
         var head = await _service.FinishAsync(id, userId, displayName);
+
+        await _hub.Clients.All.SendAsync("HeadUpdated", head);
+        await _hub.Clients.All.SendAsync("HeadStatusChanged", head);
+        return Ok(head);
+    }
+
+    [HttpPost("{id}/give-to-client")]
+    [Authorize(Roles = "Administrator")]
+    public async Task<IActionResult> GiveToClient(int id)
+    {
+        var userId = GetUserId();
+        var displayName = GetDisplayName();
+        var head = await _service.GiveToClientAsync(id, userId, displayName);
 
         await _hub.Clients.All.SendAsync("HeadUpdated", head);
         await _hub.Clients.All.SendAsync("HeadStatusChanged", head);

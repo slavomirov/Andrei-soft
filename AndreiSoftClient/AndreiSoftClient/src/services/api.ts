@@ -118,6 +118,11 @@ export async function apiGetAvailableHeads() {
   return handleResponse(res);
 }
 
+export async function apiGetMyHeads() {
+  const res = await fetch(`${API_BASE}/heads/my-heads`, { headers: headers(false) });
+  return handleResponse(res);
+}
+
 export async function apiGetHead(id: number) {
   const res = await fetch(`${API_BASE}/heads/${id}`, { headers: headers(false) });
   return handleResponse(res);
@@ -153,6 +158,7 @@ export async function apiUpdateHead(id: number, dto: {
   servicePhoneNumber: string;
   serviceNeeds: number[];
   status?: string;
+  mechanicId?: string | null;
 }) {
   const res = await fetch(`${API_BASE}/heads/${id}`, {
     method: "PUT",
@@ -180,6 +186,14 @@ export async function apiStartHead(id: number) {
 
 export async function apiFinishHead(id: number) {
   const res = await fetch(`${API_BASE}/heads/${id}/finish`, {
+    method: "POST",
+    headers: headers(false),
+  });
+  return handleResponse(res);
+}
+
+export async function apiGiveToClient(id: number) {
+  const res = await fetch(`${API_BASE}/heads/${id}/give-to-client`, {
     method: "POST",
     headers: headers(false),
   });
@@ -262,6 +276,17 @@ export async function apiGetHistoryByHead(headId: number) {
 
 export async function apiGetHistoryByMechanic(mechanicId: string) {
   const res = await fetch(`${API_BASE}/history/by-mechanic/${mechanicId}`, { headers: headers(false) });
+  return handleResponse(res);
+}
+
+// ── Reports ─────────────────────────────────────────────────────
+export async function apiGetReport(period: string) {
+  const res = await fetch(`${API_BASE}/heads/reports?period=${period}`, { headers: headers(false) });
+  return handleResponse(res);
+}
+
+export async function apiGetMyReport(period: string) {
+  const res = await fetch(`${API_BASE}/heads/reports/my?period=${period}`, { headers: headers(false) });
   return handleResponse(res);
 }
 

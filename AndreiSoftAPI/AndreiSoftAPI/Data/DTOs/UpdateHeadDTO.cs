@@ -12,4 +12,5 @@ public class UpdateHeadDTO
     public string ServicePhoneNumber { get; set; } = string.Empty;
     public List<int> ServiceNeeds { get; set; } = new();
     public string? Status { get; set; }
+    public string? MechanicId { get; set; }
 }
