@@ -6,6 +6,7 @@ import {
   apiDeleteServiceNeed,
 } from "../services/api";
 import type { ServiceNeedInfo } from "../types/Head";
+import { AlertModal } from "../components/Modal";
 
 export default function ServiceNeedsManagement() {
   const [needs, setNeeds] = useState<ServiceNeedInfo[]>([]);
@@ -14,6 +15,7 @@ export default function ServiceNeedsManagement() {
   const [form, setForm] = useState({ name: "", price: 0 });
   const [error, setError] = useState("");
   const [saving, setSaving] = useState(false);
+  const [alertMsg, setAlertMsg] = useState("");
 
   const loadNeeds = async () => {
     try {
@@ -100,7 +102,7 @@ export default function ServiceNeedsManagement() {
         setNeeds((prev) => prev.map((n) => (n.id === need.id ? updated : n)));
       }
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : "Грешка");
+      setAlertMsg(err instanceof Error ? err.message : "Грешка");
     }
   };
 
@@ -203,6 +205,13 @@ export default function ServiceNeedsManagement() {
           </tbody>
         </table>
       </div>
+
+      <AlertModal
+        open={!!alertMsg}
+        title="Грешка"
+        message={alertMsg}
+        onClose={() => setAlertMsg("")}
+      />
     </div>
   );
 }

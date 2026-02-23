@@ -4,11 +4,13 @@ import type { Head } from "../types/Head";
 import { apiGetAvailableHeads, apiStartHead } from "../services/api";
 import { useSignalR } from "../hooks/useSignalR";
 import { translateStatus } from "../utils/translations";
+import { AlertModal } from "../components/Modal";
 
 export default function MechanicIndex() {
   const [heads, setHeads] = useState<Head[]>([]);
   const [loading, setLoading] = useState(true);
   const [startingId, setStartingId] = useState<number | null>(null);
+  const [alertMsg, setAlertMsg] = useState("");
   const navigate = useNavigate();
 
   const loadHeads = async () => {
@@ -46,7 +48,7 @@ export default function MechanicIndex() {
       await apiStartHead(id);
       navigate(`/mechanic/heads/${id}`);
     } catch (err) {
-      alert(err instanceof Error ? err.message : "Неуспешно започване на работа");
+      setAlertMsg(err instanceof Error ? err.message : "Неуспешно започване на работа");
     } finally {
       setStartingId(null);
     }
@@ -97,6 +99,13 @@ export default function MechanicIndex() {
           ))}
         </div>
       )}
+
+      <AlertModal
+        open={!!alertMsg}
+        title="Грешка"
+        message={alertMsg}
+        onClose={() => setAlertMsg("")}
+      />
     </div>
   );
 }

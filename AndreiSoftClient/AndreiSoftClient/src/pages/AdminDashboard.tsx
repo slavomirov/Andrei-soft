@@ -4,12 +4,14 @@ import type { Head } from "../types/Head";
 import { apiGetAllHeads, apiDeleteHead } from "../services/api";
 import { useSignalR } from "../hooks/useSignalR";
 import { translateStatus } from "../utils/translations";
+import { ConfirmModal } from "../components/Modal";
 
 export default function AdminDashboard() {
   const [heads, setHeads] = useState<Head[]>([]);
   const [filter, setFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [loading, setLoading] = useState(true);
+  const [deleteId, setDeleteId] = useState<number | null>(null);
 
   const loadHeads = async () => {
     try {
@@ -32,10 +34,15 @@ export default function AdminDashboard() {
     (id) => setHeads((prev) => prev.filter((x) => x.id !== id))
   );
 
-  const handleDelete = async (id: number) => {
-    if (!confirm("Изтрий тази глава?")) return;
-    await apiDeleteHead(id);
-    setHeads((prev) => prev.filter((h) => h.id !== id));
+  const handleDelete = (id: number) => {
+    setDeleteId(id);
+  };
+
+  const confirmDelete = async () => {
+    if (deleteId === null) return;
+    await apiDeleteHead(deleteId);
+    setHeads((prev) => prev.filter((h) => h.id !== deleteId));
+    setDeleteId(null);
   };
 
   const statusColor = (s: string) => {
@@ -132,6 +139,15 @@ export default function AdminDashboard() {
         <span>Общо: {filtered.length}</span>
         <span>Обща стойност: {filtered.reduce((s, h) => s + h.price, 0).toFixed(2)} €</span>
       </div>
+
+      <ConfirmModal
+        open={deleteId !== null}
+        title="Изтриване"
+        message="Изтрий тази глава?"
+        variant="danger"
+        onConfirm={confirmDelete}
+        onCancel={() => setDeleteId(null)}
+      />
     </div>
   );
 }

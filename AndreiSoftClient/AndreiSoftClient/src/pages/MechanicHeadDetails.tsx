@@ -7,6 +7,7 @@ import {
   apiCheckServiceNeed, apiFinishHead,
 } from "../services/api";
 import { useSignalR } from "../hooks/useSignalR";
+import { ConfirmModal, AlertModal } from "../components/Modal";
 
 export default function MechanicHeadDetails() {
   const { id } = useParams<{ id: string }>();
@@ -14,6 +15,8 @@ export default function MechanicHeadDetails() {
   const [head, setHead] = useState<Head | null>(null);
   const [catalog, setCatalog] = useState<ServiceNeedInfo[]>([]);
   const [busy, setBusy] = useState<number | null>(null);
+  const [alertMsg, setAlertMsg] = useState("");
+  const [showFinishConfirm, setShowFinishConfirm] = useState(false);
 
   useEffect(() => {
     Promise.all([
@@ -42,7 +45,7 @@ export default function MechanicHeadDetails() {
     try {
       const updated = await apiAddServiceNeed(head.id, needId);
       setHead(updated);
-    } catch (err) { alert(err instanceof Error ? err.message : "Грешка"); }
+    } catch (err) { setAlertMsg(err instanceof Error ? err.message : "Грешка"); }
     finally { setBusy(null); }
   };
 
@@ -51,7 +54,7 @@ export default function MechanicHeadDetails() {
     try {
       const updated = await apiRemoveServiceNeed(head.id, needId);
       setHead(updated);
-    } catch (err) { alert(err instanceof Error ? err.message : "Грешка"); }
+    } catch (err) { setAlertMsg(err instanceof Error ? err.message : "Грешка"); }
     finally { setBusy(null); }
   };
 
@@ -60,16 +63,20 @@ export default function MechanicHeadDetails() {
     try {
       const updated = await apiCheckServiceNeed(head.id, needId);
       setHead(updated);
-    } catch (err) { alert(err instanceof Error ? err.message : "Грешка"); }
+    } catch (err) { setAlertMsg(err instanceof Error ? err.message : "Грешка"); }
     finally { setBusy(null); }
   };
 
-  const handleFinish = async () => {
-    if (!confirm("Маркирай главата като завършена?")) return;
+  const handleFinish = () => {
+    setShowFinishConfirm(true);
+  };
+
+  const confirmFinish = async () => {
+    setShowFinishConfirm(false);
     try {
       await apiFinishHead(head.id);
       navigate("/mechanic");
-    } catch (err) { alert(err instanceof Error ? err.message : "Грешка"); }
+    } catch (err) { setAlertMsg(err instanceof Error ? err.message : "Грешка"); }
   };
 
   return (
@@ -174,6 +181,21 @@ export default function MechanicHeadDetails() {
           </button>
         </div>
       )}
+
+      <ConfirmModal
+        open={showFinishConfirm}
+        title="Завършване"
+        message="Маркирай главата като завършена?"
+        onConfirm={confirmFinish}
+        onCancel={() => setShowFinishConfirm(false)}
+      />
+
+      <AlertModal
+        open={!!alertMsg}
+        title="Грешка"
+        message={alertMsg}
+        onClose={() => setAlertMsg("")}
+      />
     </div>
   );
 }

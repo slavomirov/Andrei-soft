@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { apiGetUsers, apiCreateUser, apiUpdateUser, apiDeactivateUser } from "../services/api";
 import type { UserInfo } from "../types/Head";
+import { ConfirmModal } from "../components/Modal";
 
 export default function UserManagement() {
   const [users, setUsers] = useState<UserInfo[]>([]);
@@ -8,6 +9,7 @@ export default function UserManagement() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+  const [deactivateId, setDeactivateId] = useState<string | null>(null);
 
   const [createForm, setCreateForm] = useState({
     username: "", password: "", confirmPassword: "",
@@ -57,10 +59,15 @@ export default function UserManagement() {
     }
   };
 
-  const handleDeactivate = async (id: string) => {
-    if (!confirm("Деактивирай този потребител?")) return;
-    await apiDeactivateUser(id);
-    setUsers((prev) => prev.map((u) => (u.id === id ? { ...u, isActive: false } : u)));
+  const handleDeactivate = (id: string) => {
+    setDeactivateId(id);
+  };
+
+  const confirmDeactivate = async () => {
+    if (deactivateId === null) return;
+    await apiDeactivateUser(deactivateId);
+    setUsers((prev) => prev.map((u) => (u.id === deactivateId ? { ...u, isActive: false } : u)));
+    setDeactivateId(null);
   };
 
   if (loading) return <div className="page-loader">Зареждане...</div>;
@@ -172,6 +179,15 @@ export default function UserManagement() {
           </tbody>
         </table>
       </div>
+
+      <ConfirmModal
+        open={deactivateId !== null}
+        title="Деактивиране"
+        message="Деактивирай този потребител?"
+        variant="danger"
+        onConfirm={confirmDeactivate}
+        onCancel={() => setDeactivateId(null)}
+      />
     </div>
   );
 }
